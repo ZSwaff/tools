@@ -9,10 +9,11 @@ else
 	d="$*"
 fi
 
-if [[ -e $d ]]; then
-	if [[ ! -f $d ]]; then
+echo $d
+if [[ -e $d ]] || [[ $d = -* ]]; then
+	if [[ ! -f $d ]] || [[ $d = -* ]]; then
 		\cd "$d"
-		ls -a -w1
+		l
 	else
 		echo "$d is a file"
 	fi
