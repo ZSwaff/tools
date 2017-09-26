@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+
+# Terminal 
+alias r='clear'
+alias higr='history | grep'
+
+# Navigation
+alias c='. cdls'
+alias cd='. cdls'
+alias c.='c ..'
+alias c..='c ../..'
+alias c...='c ../../..'
+alias cdw='c ~/Desktop/workspace'
+alias cdd='c ~/Desktop/'
+alias cdo='c ~/Downloads/'
+alias l='ls -a -w1'
+alias ls='ls -a -w1'
+alias o='open'
+alias o.='o .'
+alias rm='trash'
+
+# Installation
+alias bi='brew install'
+alias spi='sudo -H pip install'
+alias spi3='sudo -H pip3 install'
+alias sbpu='brew update; brew upgrade; spi --upgrade pip setuptools; sp3i --upgrade pip setuptools'
+
+# Editing
+alias s='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
+alias s.='s .'
+alias v='vi'
+alias i='. intrct'
+
+# Execution
+alias b='bash'
+alias p='strtpy 2'
+alias p3='strtpy 3'
+
+# Git
+alias gcl='git clone; echo "\033[0;34mIf this is a personal project, be sure to cd into it and run \033[0;31mgsep\033[0;34m to change the email.\033[0m"'
+alias gsep='git config user.email "zdfs1121@gmail.com"'
+alias glg='git log --graph --pretty=oneline --abbrev-commit'
+alias gst='git remote update; git status'
+alias gch='git checkout'
+alias gpl='git pull'
+alias gps='git push'
+alias gacp='b gacp'
+alias gacpp='b gacpp'
+alias grh='git reset --hard'
+alias grhh='grh HEAD'
+
+# Meta
+alias h='hlp'
+alias src='source ~/.zshrc'
+alias et='s ~; s ~/.zshrc; s ~/.aliases'
+alias redo='sudo $(fc -ln -1)'
+
+# Random
+alias nvenv='mkvirtualenv'
+alias jptn='jupyter notebook'
+alias ldyn='cd /Applications/dynamodb_local_latest; r; java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb; cd -; r'

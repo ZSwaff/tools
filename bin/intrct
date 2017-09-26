@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+
+# cd and ls if directory, otherwise open in sublime
+
+if [[ $1 = "" ]]; then
+	i="/home/zacks"
+else
+	i="$*"
+fi
+
+if [[ -d $i ]]; then
+	. cdls "$i"
+else
+	s "$i"
+fi
+
