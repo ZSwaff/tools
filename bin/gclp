@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+
+# git clone a personal project
+
+git clone "${1:0:14}-personal${1:14}"
+cd "${${1##*/}:0:(-4)}"
+gsep
+echo "\033[0;34mIf this is a work project, be sure to cd into it and run \033[0;31mgsew\033[0;34m to change the email (and, in the future, run \033[0;31mgcl\033[0;34m).\033[0m"

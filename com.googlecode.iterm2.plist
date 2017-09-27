@@ -494,7 +494,7 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>2046 1759 796 473 1049 900 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1049 949 2632 1368 1049 900 2560 1417 </string>
+	<string>1049 900 2560 1417 1049 900 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>176 425 585 452 0 0 1440 877 </string>
 	<key>NeverWarnAboutShortLivedSessions_7C75192C-0455-4698-BF62-52AF2939D077</key>
@@ -1229,7 +1229,7 @@
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<true/>
+	<false/>
 	<key>UseBorder</key>
 	<false/>
 	<key>Window Arrangements</key>

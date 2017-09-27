@@ -38,7 +38,9 @@ alias p='strtpy 2'
 alias p3='strtpy 3'
 
 # Git
-alias gcl='git clone; echo "\033[0;34mIf this is a personal project, be sure to cd into it and run \033[0;31mgsep\033[0;34m to change the email.\033[0m"'
+alias gcl='git clone; echo "\033[0;34mIf this is a personal project, be sure to cd into it and run \033[0;31mgsep\033[0;34m to change the email (and, in the future, run \033[0;31mgclp\033[0;34m).\033[0m"'
+alias gclp='. gclp'
+alias gsep='git config user.email "zack@plenty.ag"'
 alias gsep='git config user.email "zdfs1121@gmail.com"'
 alias glg='git log --graph --pretty=oneline --abbrev-commit'
 alias gst='git remote update; git status'
