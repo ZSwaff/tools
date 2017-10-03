@@ -3,10 +3,10 @@
 
 # git save, add, commit, then push
 
-if [[ $1 = "" ]] || [[ $2 != "" ]]; then
+if [[ $1 = "" ]]; then
 	echo -n "Commit message: "; read m
 else
-	m="$1"
+	m="$*"
 fi
 
 git config credential.helper 'cache --timeout=360000'
