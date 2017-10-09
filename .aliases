@@ -3,7 +3,7 @@
 
 # Terminal 
 alias r='clear'
-alias higr='history | grep'
+alias ghi='history | grep'
 
 # Navigation
 alias c='. cdls'
@@ -36,21 +36,24 @@ alias i='. intrct'
 alias b='bash'
 alias p='strtpy 2'
 alias p3='strtpy 3'
+alias gwb='./gradlew build'
+alias gwr='./gradlew run'
 
 # Git
 alias gcl='. gcl'
 alias gclp='. gcl -p'
-alias gsep='git config user.email "zack@plenty.ag"'
+alias gsew='git config user.email "zack@plenty.ag"'
 alias gsep='git config user.email "zdfs1121@gmail.com"'
 alias glg='git log --graph --pretty=oneline --abbrev-commit'
 alias gst='git remote update; git status'
-alias gch='git checkout'
+alias gch='. gch'
 alias gpl='git pull'
 alias gps='git push'
 alias gacp='b gacp'
 alias gacpp='b gacpp'
 alias grh='git reset --hard'
 alias grhh='grh HEAD'
+alias gbd='git branch -d'
 
 # Meta
 alias h='hlp'
