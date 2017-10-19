@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-# Terminal 
+# Terminal
+WORKSPACE=~/Desktop/workspace
 alias r='clear'
 alias ghi='history | grep'
 
@@ -11,7 +12,7 @@ alias cd='. cdls'
 alias c.='c ..'
 alias c..='c ../..'
 alias c...='c ../../..'
-alias cdw='c ~/Desktop/workspace'
+alias cdw='c ${WORKSPACE}'
 alias cdd='c ~/Desktop/'
 alias cdo='c ~/Downloads/'
 alias l='ls -a -w1'
@@ -58,6 +59,10 @@ alias gmm='gm master'
 alias grh='git reset --hard'
 alias grhh='grh HEAD'
 alias gbd='git branch -d'
+
+# Plenty
+alias qrgen='${WORKSPACE}/qr_generator/plentyqrgen/gen'
+alias cli='${WORKSPACE}/cli/plentyservice/pcli'
 
 # Meta
 alias h='hlp'
