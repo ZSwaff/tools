@@ -65,6 +65,7 @@ alias gbd='git branch -d'
 # Plenty
 alias qrgen='${WORKSPACE}/qr_generator/plentyqrgen/gen'
 alias cli='${WORKSPACE}/cli/plentyservice/pcli'
+alias beansprout='p3 ${WORKSPACE}/beansprout/beansprout.py'
 
 # Meta
 alias h='hlp'
