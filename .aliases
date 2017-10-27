@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 # Terminal
-WORKSPACE=~/Desktop/workspace
 alias r='clear'
 alias ghi='history | grep'
 
@@ -49,7 +48,7 @@ alias gsep='git config user.email "zdfs1121@gmail.com"'
 alias glg='git log --graph --pretty=oneline --abbrev-commit'
 alias gst='git remote update; git status'
 alias gb='. gch'
-alias gc='. gch'
+alias gc='gb'
 alias gbd='git branch delete'
 alias gpl='git pull'
 alias gps='git push'

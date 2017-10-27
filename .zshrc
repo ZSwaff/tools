@@ -90,6 +90,8 @@ POWERLEVEL9K_SHORTEN_DELIMITER="…"
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
 POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=5
 
+. ~/.envvars
+
 unset LSCOLORS
 export CLICOLOR=1
 export CLICOLOR_FORCE=1
@@ -98,4 +100,3 @@ colors
 
 source /usr/local/bin/virtualenvwrapper.sh
 . ~/.aliases
-. ~/.envvars

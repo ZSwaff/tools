@@ -6,16 +6,16 @@
 if [[ $1 = "" ]]; then
 	d=~
 else
-	d="$*"
+	d="${*}"
 fi
 
 echo $d
 if [[ -e $d ]] || [[ $d = -* ]]; then
 	if [[ ! -f $d ]] || [[ $d = -* ]]; then
-		\cd "$d"
+		\cd "${d}"
 		l
 	else
-		echo "$d is a file"
+		echo "${d} is a file"
 	fi
 else
 	poss=()
@@ -28,19 +28,23 @@ else
 		fi
 	done
 	if [[ ${#poss[*]} = 0 ]]; then
-		echo "$d does not exist"
+		if [[ ${PWD} = ${WORKSPACE} ]]; then
+			echo "${d} does not exist"
+		else
+			. cdls "${WORKSPACE}/${d}"
+		fi
 	else
 		if [[ ${#poss[*]} = 1 ]]; then
-			echo "$d corrected to ${poss[0]}"
+			echo "${d} corrected to ${poss[0]}"
 			. cdls "${poss[0]}"
 		else
-			echo $poss
+			echo "${poss}"
 			n=${#poss[*]}
 			for ((i=0;i<${#poss[*]};i++)); do
-				echo "[$i] ${poss[i+1]}"
+				echo "[${i}] ${poss[i+1]}"
 			done
 			read c
-			echo "$d corrected to ${poss[c+1]}"
+			echo "${d} corrected to ${poss[c+1]}"
 			. cdls "${poss[c+1]}"
 		fi
 	fi
