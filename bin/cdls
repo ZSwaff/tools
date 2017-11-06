@@ -27,11 +27,10 @@ else
 		fi
 	done
 	if [[ ${#poss[*]} = 0 ]]; then
-		if [[ ${d} == ${WORKSPACE}* ]]; then
-			echo "${d} does not exist"
-		else
+		echo "${d} does not exist"
+		if [[ ${d} != ${WORKSPACE}* ]]; then
 			echo "Checking for ${d} in workspace"
-			. cdls2 "${WORKSPACE}/${d}"
+			. cdls "${WORKSPACE}/${d}"
 		fi
 	else
 		if [[ ${#poss[*]} = 1 ]]; then
