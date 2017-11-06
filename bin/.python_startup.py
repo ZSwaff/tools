@@ -22,6 +22,15 @@ def rand_sn(n=1, prefix='', suffix='', sn_format='{}{}{}{}-{}{}{}{}-{}{}{}'):
 		res.append(prefix + sn_format.format(*lst) + suffix)
 	return res
 
+def tower_loc(room, row, tower, site='SSF1'):
+	return 'T:{}-{}-{}-{}'.format(site, room, row, tower)
+
+def formatted_tower_locs(room, rows, towers, site='SSF1'):
+	locs = [(chr(r), str(n)) for r in range(ord('A'), ord('A') + rows) for n in range(1, towers + 1)]
+	t_locs = [tower_loc(room, row, tower, site) for row, tower in locs]
+	return ['{0}, {1}, {0}'.format(e, '-'.join(e.split('-')[-2:])) for e in t_locs]
+
+
 # Trays
 # print '\n'.join(rand_sn(30, '', '', 'Tray:0_0_1:{0}{1}{2}{3}-{4}{5}{6}{7}-{8}{9}, {0}{1}{2}{3}, Tray:0_0_1:{0}{1}{2}{3}-{4}{5}{6}{7}-{8}{9}'))
 # Towers

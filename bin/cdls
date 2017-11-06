@@ -9,7 +9,6 @@ else
 	d="${*}"
 fi
 
-echo $d
 if [[ -e $d ]] || [[ $d = -* ]]; then
 	if [[ ! -f $d ]] || [[ $d = -* ]]; then
 		\cd "${d}"
@@ -28,10 +27,11 @@ else
 		fi
 	done
 	if [[ ${#poss[*]} = 0 ]]; then
-		if [[ ${PWD} = ${WORKSPACE} ]]; then
+		if [[ ${d} == ${WORKSPACE}* ]]; then
 			echo "${d} does not exist"
 		else
-			. cdls "${WORKSPACE}/${d}"
+			echo "Checking for ${d} in workspace"
+			. cdls2 "${WORKSPACE}/${d}"
 		fi
 	else
 		if [[ ${#poss[*]} = 1 ]]; then
