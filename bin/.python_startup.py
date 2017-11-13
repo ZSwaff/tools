@@ -1,9 +1,14 @@
 import sys
 import time
+import datetime
 import os
 import random
 
 import numpy as np
+
+false = False
+true = True
+null = None
 
 l = [1, 2, 3, 4, 5]
 d = {1: 2, 2: 3, 3: 4}
