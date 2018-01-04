@@ -10,7 +10,7 @@ if [[ $1 = "-p" ]]; then
 fi
 git clone $1
 cd "${${1##*/}:0:(-4)}"
-if [[ $p = 0 ]]; then
+if [[ $p = 1 ]]; then
 	gsep
 	echo "\033[0;34mIf this is a work project, be sure to cd into it and run \033[0;31mgsew\033[0;34m to change the email (and, in the future, run \033[0;31mgcl\033[0;34m).\033[0m"
 else
