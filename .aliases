@@ -60,7 +60,7 @@ alias gmm='gm master'
 alias grh='git reset --hard'
 alias grhh='grh HEAD'
 alias gbd='git branch -d'
-alias gnr="git pull && lcm=$(git --no-pager log -n 1 --pretty=format:'%s') && orv=$(hub release | grep -o '0.0.\dr\d*' | sort -r | head -n1) && echo $(hub release create -p -m $lcm ${orv%r*}r$((${orv#*r} + 1)))"
+alias gnr="git pull && lcm='$(git --no-pager log -n 1 --pretty=format:'%s')' && orv=$(hub release | grep -o '0.0.\dr\d*' | sort -r | head -n1) && nrv=${orv%r*}r$((${orv#*r} + 1)) && echo '$lcm $nrv' && echo '$(hub release create -p -m $lcm $nrv)'"
 
 # Plenty
 alias qrgen='${WORKSPACE}/qr_generator/plentyqrgen/gen'
