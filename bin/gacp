@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-# git save, add, commit, then push
+# git add, commit, then push
 
 if [[ $1 = "" ]]; then
 	echo -n "Commit message: "; read m
