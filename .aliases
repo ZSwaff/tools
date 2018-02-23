@@ -68,6 +68,7 @@ function gnr () {
 	nrv="${orv%r*}r$((${orv#*r} + 1))"
 	echo "$lcm $nrv"
 	hub release create -p -m "$lcm" $nrv
+	git pull
 }
 
 # Plenty
