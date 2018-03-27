@@ -74,6 +74,7 @@ function gnr () {
 # Plenty
 alias qrgen='${WORKSPACE}/qr_generator/plentyqrgen/gen'
 alias cli='${WORKSPACE}/cli/plentyservice/pcli'
+alias create_user='${WORKSPACE}/plenty_service_automation/user_management/create_user.py'
 alias beansprout='p3 ${WORKSPACE}/beansprout/beansprout.py'
 
 # Meta
