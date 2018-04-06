@@ -13,5 +13,4 @@ git config credential.helper 'cache --timeout=360000'
 git config credential.helper cache
 git add --all .
 git commit -m "$m"
-git push
-
+git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)
