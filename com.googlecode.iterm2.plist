@@ -496,9 +496,9 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>1039 1026 606 469 770 900 2560 1417 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>1725 1844 937 464 728 900 2560 1417 </string>
+	<string>364 404 796 473 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>728 900 2560 1417 728 900 2560 1417 </string>
+	<string>24 85 1340 792 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>100 97 1340 769 0 0 1440 877 </string>
 	<key>NeverWarnAboutShortLivedSessions_7C75192C-0455-4698-BF62-52AF2939D077</key>
@@ -1172,7 +1172,7 @@
 	<key>OnlyWhenMoreTabs</key>
 	<false/>
 	<key>OpenArrangementAtStartup</key>
-	<false/>
+	<true/>
 	<key>OpenBookmark</key>
 	<false/>
 	<key>OpenNoWindowsAtStartup</key>
@@ -1233,7 +1233,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-04-03T20:25:53Z</date>
+	<date>2018-05-01T21:10:50Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
@@ -4994,7 +4994,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.1.5</string>
+	<string>3.1.6</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
