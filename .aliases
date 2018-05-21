@@ -24,6 +24,8 @@ alias rm='trash'
 alias bi='brew install'
 alias spi='sudo -H pip install'
 alias spi3='sudo -H pip3 install'
+alias spsi='sudo -H python setup.py install'
+alias spsi3='sudo -H python3 setup.py install'
 alias sbpu='brew update; brew upgrade; spi --upgrade pip setuptools; sp3i --upgrade pip setuptools'
 
 # Editing
@@ -50,6 +52,9 @@ alias gst='git remote update; git status'
 alias gba='git branch -a'
 alias gc='. gch'
 alias gcm='. gch master'
+function gcr () {
+	git checkout --track "origin/${1}"
+}
 alias gbd='git branch -D'
 alias gpl='git pull'
 alias gps='git push'
