@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+
+# git clone a work or personal project
+
+git checkout --track "origin/${1}"

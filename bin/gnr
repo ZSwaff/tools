@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+
+# make a new release on GitHub
+
+git pull
+lcm="$(git --no-pager log -n 1 --pretty=format:'%s')"
+orv="$(hub release | grep -o '0.0.\dr\d*' | sort -r | head -n1)"
+nrv="${orv%r*}r$((${orv#*r} + 1))"
+echo "${lcm} ${nrv}"
+hub release create -p -m "${lcm}" $nrv
+git pull

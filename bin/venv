@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+
+# create and start or just start a virtual environment 
+
+name="${1}"
+dname="${HOME}/venv/${name}"
+actvf="${dname}/bin/activate"
+
+if [[ ! -d $dname ]]; then
+	echo "Creating virtual environment ${name}."
+	sudo -H virtualenv "${dname}"
+fi
+
+if [[ ! -f $actvf ]]; then
+	echo "Corrupted virtual environment ${name}. Exiting."
+	exit 1
+fi
+
+source "${actvf}"
