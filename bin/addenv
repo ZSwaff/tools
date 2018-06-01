@@ -1,9 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # add or remove an environment variable
 
-from __future__ import print_function
 
 import sys
 from os import path

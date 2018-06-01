@@ -2,94 +2,87 @@
 # -*- coding: utf-8 -*-
 
 # Terminal
-alias r='clear'
-alias ghi='history | grep'
+alias r='clear'  # clear the console
+alias ghi='history | grep'  # search through command history
+alias addenv='addenv'  # add an environment variable
+alias rmenv='addenv -d'  # remove an environment variable
 
 # Navigation
-alias c='. cdls'
+alias c='. cdls'  # change directory intelligently
 alias cd='. cdls'
-alias c.='c ..'
-alias c..='c ../..'
-alias c...='c ../../..'
-alias cdw='c ${WORKSPACE}'
-alias cdd='c ~/Desktop/'
-alias cdo='c ~/Downloads/'
-alias l='ls -a -w1'
+alias c.='c ..'  # change directory up one level
+alias c..='c ../..'  # change directory up two levels
+alias c...='c ../../..'  # change directory up three levels
+alias cdw='c ${WORKSPACE}'  # change directory to workspace
+alias cdd='c ~/Desktop/'  # change directory to desktop
+alias cdo='c ~/Downloads/'  # change directory to downloads
+alias l='ls -a -w1'  # list all one per line
 alias ls='ls -a -w1'
-alias o='open'
-alias o.='o .'
+alias o='open'  # open
+alias o.='o .'  # open cwd in finder
 alias rm='trash'
 
 # Installation
-alias bi='brew install'
-alias spi='sudo -H pip install'
-alias spi3='sudo -H pip3 install'
-alias spsi='sudo -H python setup.py install'
-alias spsi3='sudo -H python3 setup.py install'
-alias sbpu='brew update; brew upgrade; spi --upgrade pip setuptools; sp3i --upgrade pip setuptools'
+alias bi='brew install'  # brew install
+alias spi='sudo -H pip install'  # pip 2 install
+alias spi3='sudo -H pip3 install'  # pip 3 install
+alias spsi='sudo -H python setup.py install'  # Python 2 setup install cwd package
+alias spsi3='sudo -H python3 setup.py install'  # Python 3 setup install cwd package
+alias sbpu='brew update; brew upgrade; spi --upgrade pip setuptools; sp3i --upgrade pip setuptools'  # upgrade brew and pip
 
 # Editing
-alias s='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
-alias s.='s .'
-alias v='vi'
-alias i='. intrct'
+alias s='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'  # sublime
+alias sublime='s'
+alias s.='s .'  # open cwd in sublime 
+alias v='vi'  # vim
+alias i='. intrct'  # interact intelligently
 
 # Execution
-alias b='bash'
-alias p='strtpy 2'
-alias p3='strtpy 3'
-alias gwb='./gradlew build'
-alias gwr='./gradlew run'
-alias gwt='./gradlew test'
+alias b='bash'  # bash
+alias p='strtpy 2'  # run file or open REPL with interactive Python 2
+alias p3='strtpy 3'  # run file or open REPL with interactive Python 3
+alias gwb='./gradlew build'  # build cwd project with gradle
+alias gwr='./gradlew run'  # run cwd project with gradle
+alias gwt='./gradlew test'  # test cwd project with gradle
 
 # Git
-alias gcl='. gcl'
-alias gclp='. gcl -p'
-alias gsew='git config user.email "zack@plenty.ag"'
-alias gsep='git config user.email "zdfs1121@gmail.com"'
-alias glg='git log --graph --pretty=oneline --abbrev-commit'
-alias gst='git remote update; git status'
-alias gba='git branch -a'
-alias gc='. gch'
-alias gcm='. gch master'
-function gcr () {
-	git checkout --track "origin/${1}"
-}
-alias gbd='git branch -D'
-alias gpl='git pull'
-alias gps='git push'
-alias gacp='b gacp'
-alias gacpp='b gacpp'
-alias gs='git stash'
-alias gsp='git stash pop'
-alias gd='git diff'
-alias gm='git merge'
-alias gmm='gm master'
-alias grh='git reset --hard'
-alias grhh='grh HEAD'
-function gnr () {
-	git pull
-	lcm="$(git --no-pager log -n 1 --pretty=format:'%s')"
-	orv="$(hub release | grep -o '0.0.\dr\d*' | sort -r | head -n1)"
-	nrv="${orv%r*}r$((${orv#*r} + 1))"
-	echo "$lcm $nrv"
-	hub release create -p -m "$lcm" $nrv
-	git pull
-}
+alias gcl='. gcl'  # git clone for work
+alias gclp='. gcl -p'  # git clone for personal
+alias gsew='git config user.email "zack@plenty.ag"'  # git set email for work
+alias gsep='git config user.email "zdfs1121@gmail.com"'  # git set email for personal
+alias glg='git log --graph --pretty=oneline --abbrev-commit'  # git log for convinient reading
+alias gst='git remote update; git status'  # git status
+alias gba='git branch -a'  # git branch all
+alias gc='. gch'  # git checkout
+alias gcm='. gch master'  # git checkout master
+alias gcr='. gcr'  # git checkout remote
+alias gbd='git branch -D'  # git branch delete
+alias gpl='git pull'  # git pull
+alias gps='git push'  # git push
+alias gacp='b gacp'  # git add, commit, then push
+alias gacpp='b gacpp'  # git add, commit, pull, then push
+alias gs='git stash'  # git stash
+alias gsp='git stash pop'  # git stash pop
+alias gd='git diff'  # git diff
+alias gm='git merge'  # git merge
+alias gmm='gm master'  # git merge master
+alias grh='git reset --hard'  # git reset hard
+alias gnr='. gnr'  # make a new release on GitHub
 
 # Plenty
-alias qrgen='${WORKSPACE}/qr_generator/plentyqrgen/gen'
-alias cli='${WORKSPACE}/cli/plentyservice/pcli'
-alias create_user='${WORKSPACE}/plenty_service_automation/user_management/create_user.py'
-alias beansprout='p3 ${WORKSPACE}/beansprout/beansprout.py'
+alias cli='${WORKSPACE}/cli/plentyservice/pcli'  # Plenty CLI
+alias qrgen='${WORKSPACE}/qr_generator/plentyqrgen/gen'  # generate QR code
+alias beansprout='p3 ${WORKSPACE}/beansprout/beansprout.py'  # run beansprout
+alias create_user='${WORKSPACE}/plenty_service_automation/user_management/create_user.py'  # create user
 
 # Meta
-alias h='hlp'
-alias src='source ~/.zshrc'
-alias et='s ~; s ~/.zshrc; s ~/.aliases'
-alias redo='sudo $(fc -ln -1)'
+alias h='hlp'  # help
+alias src='source ~/.zshrc'  # re-source the command line tools
+alias et='s ~; s ~/.aliases'  # edit command line tools
+alias redo='sudo $(fc -ln -1)'  # redo a command with sudo privileges
 
 # Random
-alias nvenv='mkvirtualenv'
-alias jptn='jupyter notebook'
-alias ldyn='cd /Applications/dynamodb_local_latest; r; java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb; cd -; r'
+alias venv='. venv'  # create and start or just start a virtual environment
+alias dctv='deactivate'  # deactivate a virtual environment
+alias jptn='jupyter notebook'  # jupyter notebook
+alias ldyn='cd /Applications/dynamodb_local_latest; r; java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb; cd -; r'  # run local dynamo instance
