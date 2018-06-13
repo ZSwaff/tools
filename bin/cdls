@@ -6,15 +6,19 @@
 if [[ $1 = "" ]]; then
 	d=~
 else
-	d="${*}"
+	d=${*}
 fi
 
-if [[ -e $d ]] || [[ $d = -* ]]; then
-	if [[ ! -f $d ]] || [[ $d = -* ]]; then
-		\cd "${d}"
+if [[ $d = -* ]]; then
+	d=~${d}
+fi
+
+if [[ -e $d ]]; then
+	if [[ ! -f $d ]]; then
+		\cd ${d}
 		l
 	else
-		echo "${d} is a file"
+		echo ${d} is a file
 	fi
 else
 	poss=()
@@ -27,24 +31,23 @@ else
 		fi
 	done
 	if [[ ${#poss[*]} = 0 ]]; then
-		echo "${d} does not exist"
+		echo ${d} does not exist
 		if [[ ${d} != ${WORKSPACE}* ]]; then
-			echo "Checking for ${d} in workspace"
-			. cdls "${WORKSPACE}/${d}"
+			echo Checking for ${d} in workspace
+			. cdls ${WORKSPACE}/${d}
 		fi
 	else
 		if [[ ${#poss[*]} = 1 ]]; then
-			echo "${d} corrected to ${poss[0]}"
-			. cdls "${poss[0]}"
+			echo ${d} corrected to ${poss[1]}
+			. cdls ${poss[1]}
 		else
-			echo "${poss}"
 			n=${#poss[*]}
 			for ((i=0;i<${#poss[*]};i++)); do
 				echo "[${i}] ${poss[i+1]}"
 			done
 			read c
-			echo "${d} corrected to ${poss[c+1]}"
-			. cdls "${poss[c+1]}"
+			echo ${d} corrected to ${poss[c+1]}
+			. cdls ${poss[c+1]}
 		fi
 	fi
 fi
