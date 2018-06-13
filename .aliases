@@ -13,6 +13,7 @@ alias cd='. cdls'
 alias c.='c ..'  # change directory up one level
 alias c..='c ../..'  # change directory up two levels
 alias c...='c ../../..'  # change directory up three levels
+alias c-='c -'  # change to last active directory
 alias cdw='c ${WORKSPACE}'  # change directory to workspace
 alias cdd='c ~/Desktop/'  # change directory to desktop
 alias cdo='c ~/Downloads/'  # change directory to downloads
@@ -24,11 +25,10 @@ alias rm='trash'
 
 # Installation
 alias bi='brew install'  # brew install
-alias spi='sudo -H pip install'  # pip 2 install
-alias spi3='sudo -H pip3 install'  # pip 3 install
+alias spi='sudo -H pip install'  # pip install
 alias spsi='sudo -H python setup.py install'  # Python 2 setup install cwd package
 alias spsi3='sudo -H python3 setup.py install'  # Python 3 setup install cwd package
-alias sbpu='brew update; brew upgrade; spi --upgrade pip setuptools; sp3i --upgrade pip setuptools'  # upgrade brew and pip
+alias sbpu='brew update && brew upgrade && spi --upgrade pip setuptools'  # upgrade brew and pip
 
 # Editing
 alias s='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'  # sublime
@@ -85,4 +85,4 @@ alias redo='sudo $(fc -ln -1)'  # redo a command with sudo privileges
 alias venv='. venv'  # create and start or just start a virtual environment
 alias dctv='deactivate'  # deactivate a virtual environment
 alias jptn='jupyter notebook'  # jupyter notebook
-alias ldyn='cd /Applications/dynamodb_local_latest; r; java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb; cd -; r'  # run local dynamo instance
+alias ldyn='c /Applications/dynamodb_local_latest && r && java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb && c- && r'  # run local dynamo instance
