@@ -26,7 +26,7 @@ alias rm='trash'
 # Installation
 alias bi='brew install'  # brew install
 alias pip2='sudo -H python2 -m pip'  # pip 2
-alias pip3='sudo -H python2 -m pip'  # pip 3
+alias pip3='sudo -H python3 -m pip'  # pip 3
 alias pi2='pip2 install'  # pip 2 install
 alias pi3='pip3 install'  # pip 3 install
 alias psi2='sudo -H python2 setup.py install'  # Python 2 setup install cwd package
