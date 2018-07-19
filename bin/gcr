@@ -3,4 +3,5 @@
 
 # git clone a work or personal project
 
+git pull
 git checkout --track "origin/${1}"
