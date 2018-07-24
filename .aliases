@@ -57,6 +57,7 @@ alias glg='git log --graph --pretty=oneline --abbrev-commit'  # git log for conv
 alias gst='git remote update; git status'  # git status
 alias gba='git branch -a'  # git branch all
 alias gc='. gch'  # git checkout
+alias gc-='git checkout @{-1}'  # git checkout last
 alias gcm='. gch master'  # git checkout master
 alias gcr='. gcr'  # git checkout remote
 alias gbd='git branch -D'  # git branch delete
