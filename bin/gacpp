@@ -3,6 +3,8 @@
 
 # git save, add, commit, pull, then push
 
+set -e
+
 if [[ $1 = "" ]]; then
 	echo -n "Commit message: "; read m
 else

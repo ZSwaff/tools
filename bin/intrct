@@ -3,6 +3,8 @@
 
 # cd and ls if directory, otherwise open in sublime
 
+set -e
+
 if [[ $1 = "" ]]; then
 	i="/home/zacks"
 else

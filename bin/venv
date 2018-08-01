@@ -3,6 +3,8 @@
 
 # create and start or just start a virtual environment 
 
+set -e
+
 name="${1}"
 dname="${HOME}/venv/${name}"
 actvf="${dname}/bin/activate"

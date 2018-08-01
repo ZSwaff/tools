@@ -3,6 +3,8 @@
 
 # git clone a work or personal project
 
+set -e
+
 p=0
 if [[ $1 = "-p" ]]; then
 	1="${2:0:10}-personal${2:14}"

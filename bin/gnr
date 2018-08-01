@@ -3,11 +3,18 @@
 
 # make a new release on GitHub
 
-git pull
+set -e
+
+git pull --all
 lcm="$(git --no-pager log -n 1 --pretty=format:'%s')"
-orv="$(hub release | grep -o '0.0.\dr\d*' | head -n1)"
-nrv="${orv%r*}r$((${orv#*r} + 1))"
 mrc="$(git --no-pager log -n 1 --pretty=format:'%H')"
+orv="$(hub release | grep -o '0.0.\dr\d*' | head -n1)"
+if [[ $orv = "" ]]; then
+	nrv="0.0.0r1"
+else
+	nrv="${orv%r*}r$((${orv#*r} + 1))"
+fi
+
 echo "${lcm} ${nrv}"
 hub release create -p -t "${mrc}" -m "${lcm}" $nrv
 git pull

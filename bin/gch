@@ -3,6 +3,8 @@
 
 # git checkout a new or old branch
 
+set -e
+
 git rev-parse --verify $1 &> /dev/null
 if [[ $? = 0 ]]; then
 	git checkout $1
