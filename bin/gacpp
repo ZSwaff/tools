@@ -17,3 +17,5 @@ git add --all .
 git commit -m "$m"
 git pull
 git push
+
+set +e

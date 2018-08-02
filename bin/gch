@@ -12,3 +12,5 @@ if [[ $? = 0 ]]; then
 else
 	git checkout -b $1
 fi
+
+set +e

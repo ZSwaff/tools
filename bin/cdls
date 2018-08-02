@@ -3,6 +3,8 @@
 
 # cd then ls
 
+set -e
+
 if [[ $1 = "" ]]; then
 	d=~
 else
@@ -51,3 +53,5 @@ else
 		fi
 	fi
 fi
+
+set +e

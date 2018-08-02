@@ -18,3 +18,5 @@ fi
 echo "${lcm} ${nrv}"
 hub release create -p -t "${mrc}" -m "${lcm}" $nrv
 git pull
+
+set +e

@@ -7,3 +7,5 @@ set -e
 
 git pull
 git checkout --track "origin/${1}"
+
+set +e
