@@ -3,8 +3,6 @@
 
 # cd then ls
 
-set -e
-
 if [[ $1 = "" ]]; then
 	d=~
 else
