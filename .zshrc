@@ -31,3 +31,5 @@ colors
 
 source /usr/local/bin/virtualenvwrapper.sh
 . ~/.aliases
+
+export PATH=/Users/zackswafford/bin:$PATH
