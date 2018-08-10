@@ -32,4 +32,4 @@ colors
 source /usr/local/bin/virtualenvwrapper.sh
 . ~/.aliases
 
-export PATH=/Users/zackswafford/bin:$PATH
+export PATH=/Users/zackswafford/bin:/Users/zackswafford/Desktop/workspace/plenty_service_automation/user_management:$PATH

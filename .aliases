@@ -89,6 +89,3 @@ alias ldyn='c /Applications/dynamodb_local_latest && r && java -Djava.library.pa
 alias cli='${WORKSPACE}/cli/plentyservice/pcli'  # Plenty CLI
 alias qrgen='${WORKSPACE}/qr_generator/plentyqrgen/gen'  # generate QR code
 alias beansprout='p3 ${WORKSPACE}/beansprout/beansprout.py'  # run beansprout
-alias create_user='${WORKSPACE}/plenty_service_automation/user_management/create_user.py'  # create user
-alias assign_role='${WORKSPACE}/plenty_service_automation/user_management/assign_role.py'  # assign a role
-alias build_email='${WORKSPACE}/plenty_service_automation/user_management/register_hyp_update_email.py'  # send an email on build finish
