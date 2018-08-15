@@ -1,22 +1,92 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# make a new release on GitHub
+# make a new release or releases on GitHub
 
-set -e
+import os
+import re
+import argparse
+import subprocess
 
-git pull --all
-lcm="$(git --no-pager log -n 1 --pretty=format:'%s')"
-mrc="$(git --no-pager log -n 1 --pretty=format:'%H')"
-orv="$(hub release | grep -o '0.0.\dr\d*' | head -n1)"
-if [[ $orv = "" ]]; then
-	nrv="0.0.0r1"
-else
-	nrv="${orv%r*}r$((${orv#*r} + 1))"
-fi
 
-echo "${lcm} ${nrv}"
-hub release create -p -t "${mrc}" -m "${lcm}" $nrv
-git pull
+PDP_BRANCH = 'nuke_pdp'  # todo change to master
+GRADLE_REGEX = '    compile \'com.github.PlentyAg:{}:{}\'\n'
 
-set +e
+
+def bump_version():
+    """Bumps the version of the current repo.
+
+    Returns:
+        (tuple(str, str)): The name of the repo that was bumped and the new
+            version identifier.
+    """
+    subprocess.check_output('git pull --all', shell=True)
+    commit_msg = subprocess.check_output(
+        'git --no-pager log -n 1 --pretty=format:\'%s\'', shell=True).decode()
+    commit_hash = subprocess.check_output(
+        'git --no-pager log -n 1 --pretty=format:\'%H\'', shell=True).decode()
+    old_version = subprocess.check_output(
+        'hub release | grep -oE \'\\d+.\\d+.\\d+(r\\d+)?(p\\d+)?\' | head -n1',
+        shell=True).decode().strip()
+
+    new_version = '0.0.0r1'
+    if old_version:
+        frags = [e for e in re.split('([0-9]+)', old_version) if e]
+        frags[-1] = str(int(frags[-1]) + 1)
+        new_version = ''.join(frags)
+
+    repo = re.match(r'.*?/(.*)\.git', subprocess.check_output(
+        'git config --get remote.origin.url', shell=True).decode().strip()
+    ).group(1)
+    print('Releasing {} {}: "{}"'.format(repo, new_version, commit_msg))
+    subprocess.check_output('hub release create -p -t "{}" -m "{}" {}'
+        .format(commit_hash, commit_msg, new_version), shell=True)
+    subprocess.check_output('git pull', shell=True)
+
+    return repo, new_version
+
+
+def main():
+    """Make a new release or releases on GitHub."""
+    parser = argparse.ArgumentParser(
+        description='A CLI to make a new release or releases on GitHub.')
+    parser.add_argument('-p', dest='release_pdp', action='store_true',
+        help='bump a release of the primary PDP as well')
+
+    repo, version = bump_version()
+
+    args = parser.parse_args()
+    if not args.release_pdp:
+        return
+
+    print('Switching to PDP branch ' + PDP_BRANCH
+          + ' and migrating PDP to new version of ' + repo)
+    pdp_path = os.path.join(os.environ['WORKSPACE'], 'PlentyDataPipelineUtil')
+    subprocess.check_output('git stash', cwd=pdp_path, shell=True)
+    orig_branch = subprocess.check_output('git rev-parse --abbrev-ref HEAD',
+        cwd=pdp_path, shell=True).decode()
+    subprocess.check_output('git checkout ' + PDP_BRANCH, cwd=pdp_path,
+        shell=True)
+    subprocess.check_output('git pull', cwd=pdp_path, shell=True)
+
+    with open('build.gradle', 'r') as fin:
+        old_content = fin.readlines()
+    line_regex = GRADLE_REGEX.format(repo, '.*')
+    new_content = []
+    for l in old_content:
+        match = re.match(line_regex, l)
+        if match is None:
+            new_content.append(l)
+        else:
+            new_content.append(GRADLE_REGEX.format(repo, version))
+    with open('build.gradle', 'w') as fout:
+        fout.write(''.join(new_content))
+    bump_version()
+
+    subprocess.check_output('git checkout ' + orig_branch, cwd=pdp_path,
+        shell=True)
+    subprocess.check_output('git stash pop', cwd=pdp_path, shell=True)
+
+
+if __name__ == '__main__':
+    main()
