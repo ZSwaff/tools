@@ -41,7 +41,7 @@ def bump_version(path=None):
     raw_origin = run_command('git config --get remote.origin.url', path).strip()
     repo = re.match(r'.*?/(.*)\.git', raw_origin).group(1)
     print('Releasing {} {}: "{}"'.format(repo, new_version, commit_msg))
-    run_command('hub release create -p -t "{}" -m "{}" {}'
+    run_command('hub release create -t "{}" -m "{}" {}'
         .format(commit_hash, commit_msg, new_version), path)
     run_command('git pull', path, True)
 
@@ -75,7 +75,7 @@ def main():
     parser.add_argument('-p', dest='release_pdp', action='store_true',
         help='bump a release of the primary PDP as well')
 
-    repo, version = bump_version()
+    repo, version = 'PlentyDataPipelineUtilCore', '0.1.9'  # bump_version()
 
     args = parser.parse_args()
     if not args.release_pdp:
@@ -84,22 +84,27 @@ def main():
     print('\nSwitching to PDP branch ' + PDP_BRANCH
           + ' and migrating PDP to new version of ' + repo)
     pdp_path = os.path.join(os.environ['WORKSPACE'], 'PlentyDataPipelineUtil')
-    run_command('git stash', pdp_path, True)
-    orig_branch = run_command('git rev-parse --abbrev-ref HEAD', pdp_path, True)
+    stashed = 'No local changes to save' in \
+              run_command('git stash', pdp_path, True)
+    orig_branch = run_command('git rev-parse --abbrev-ref HEAD', pdp_path,
+        True).strip()
     run_command('git checkout ' + PDP_BRANCH, pdp_path, True)
     run_command('git pull', pdp_path, True)
 
-    with open('build.gradle', 'r') as fin:
+    dep_path = os.path.join(pdp_path, 'build.gradle')
+    with open(dep_path, 'r') as fin:
         old_content = fin.readlines()
     line_regex = GRADLE_REGEX.format(repo, '.*')
     new_content = []
     for l in old_content:
+        if 'PlentyDataPipelineUtilCore' in l:
+            print()
         match = re.match(line_regex, l)
         if match is None:
             new_content.append(l)
         else:
             new_content.append(GRADLE_REGEX.format(repo, version))
-    with open('build.gradle', 'w') as fout:
+    with open(dep_path, 'w') as fout:
         fout.write(''.join(new_content))
 
     run_command('git commit -a -m "Auto-bumps {} to version {}"'
@@ -108,7 +113,8 @@ def main():
     bump_version(pdp_path)
 
     run_command('git checkout ' + orig_branch, pdp_path, True)
-    run_command('git stash pop', pdp_path, True)
+    if stashed:
+        run_command('git stash pop', pdp_path, True)
 
 
 if __name__ == '__main__':
