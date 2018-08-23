@@ -31,5 +31,6 @@ colors
 
 source /usr/local/bin/virtualenvwrapper.sh
 . ~/.aliases
+. ~/.aliases_plenty
 
-export PATH=/Users/zackswafford/bin:/Users/zackswafford/Desktop/workspace/plenty_service_automation/user_management:$PATH
+export PATH=/Users/zackswafford/bin:/Users/zackswafford/Desktop/workspace/plenty_service_automation:/Users/zackswafford/Desktop/workspace/plenty_service_automation/user_management:$PATH
