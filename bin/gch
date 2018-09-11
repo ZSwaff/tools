@@ -1,16 +1,49 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# git checkout a new or old branch
+# git checkout an existing local or remote branch, or make a new one
 
-set -e
 
-git rev-parse --verify $1 &> /dev/null
-if [[ $? = 0 ]]; then
-	git checkout $1
-	git pull
-else
-	git checkout -b $1
-fi
+import argparse
+from subprocess import CalledProcessError
 
-set +e
+from common import run_command
+
+
+def branch_exists(branch):
+    """Checks if a branch exists.
+
+    Args:
+        branch (str): The name of the branch.
+    Returns:
+        (bool): Whether the branch exists.
+    """
+    try:
+        run_command('git rev-parse --verify {} 2>&1'.format(branch))
+        return True
+    except CalledProcessError as e:
+        if '128' in str(e):
+            return False
+        raise e
+
+
+def main():
+    """The main method."""
+    parser = argparse.ArgumentParser(description='A CLI to check out a local or remote branch, and create a new one if needed.')
+    parser.add_argument('branch', help='the name of the branch')
+    args = parser.parse_args()
+    branch = args.branch
+
+    if branch_exists(branch):
+        run_command('git checkout ' + branch)
+        return
+
+    run_command('git pull --all')
+    if branch_exists('origin/' + branch):
+        run_command('git checkout --track origin/' + branch)
+        return
+
+    run_command('git checkout -b ' + branch)
+
+if __name__ == '__main__':
+    main()

@@ -3,14 +3,13 @@
 
 # cd then ls
 
-set -e
-
 if [[ $1 = "" ]]; then
 	d=~
 else
 	d=${*}
 fi
 
+echo $d
 if [[ $d = -* ]]; then
 	d=~${d}
 fi
@@ -53,5 +52,3 @@ else
 		fi
 	fi
 fi
-
-set +e
