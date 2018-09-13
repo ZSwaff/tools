@@ -3,6 +3,7 @@
 
 # git add, commit, then push
 
+
 set -e
 
 if [[ $1 = "" ]]; then

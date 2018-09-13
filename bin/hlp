@@ -4,24 +4,46 @@
 # prints info on all the aliases and custom commands
 
 
-import os
 from os import path
+import argparse
 import re
+
 from termcolor import colored
 
 
-aliases_fname = path.expanduser(path.join('~', '.aliases'))
-with open(aliases_fname) as fin:
-    for line in fin.readlines()[2:]:
-        line = line.strip()
-        if line.startswith('#'):
-            print(colored(line[1:].strip(), 'blue'))
-            continue
-        if line == '':
-        	print()
-        	continue
-        match = re.match(r'alias (\w*)=\'.*\'  # (.*)', line)
-        if match is None:
-            continue
-        print('{}: {}'.format(colored(match.group(1), 'green'), match.group(2)))
-print()
+def main():
+    """The main function."""
+    parser = argparse.ArgumentParser(description='A CLI to get help with custom commands.')
+    parser.add_argument('cmd', nargs='?', help='the particular command of interest')
+    args = parser.parse_args()
+
+    listing = []
+    mapping = {}
+    aliases_fname = path.expanduser(path.join('~', '.aliases'))
+    with open(aliases_fname) as fin:
+        for line in fin.readlines()[2:]:
+            line = line.strip()
+            if line.startswith('#'):
+                listing.append(colored(line[1:].strip(), 'blue'))
+                continue
+            if line == '':
+                listing.append('')
+                continue
+            match = re.match(r'alias (\w*)=\'.*\'  # (.*)', line)
+            if match is None:
+                continue
+            listing.append('{}: {}'.format(colored(match.group(1), 'green'), match.group(2)))
+            mapping[match.group(1)] = match.group(2)
+
+    cmd = args.cmd
+    if cmd is None:
+        print('\n'.join(listing) + '\n')
+    else:
+        if cmd in mapping:
+            print(mapping[cmd])
+        else:
+            print(colored('Could not find command', 'red'))
+
+
+if __name__ == '__main__':
+    main()
