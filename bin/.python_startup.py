@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 """Common Python functions."""
 
+
 import sys
 import os
 import math
@@ -21,6 +22,15 @@ import plenty_data_frames
 from common import *
 
 
+def ignore_null(func):
+	"""Ignores null arguments on the input function"""
+    def wrapper(*args):
+        if func is None or all(e is None for e in args):
+            return None
+        return func(e for e in args if e is not None)
+    return wrapper
+
+
 false = False
 true = True
 null = None
@@ -31,3 +41,6 @@ d = {1: 2, 2: 3, 3: 4}
 t = (1, 2, 3)
 
 q = exit
+
+min = ignore_null(min)
+max = ignore_null(max)
