@@ -3,6 +3,7 @@
 """Common Python functions."""
 
 
+# Basic Imports
 import sys
 import os
 import math
@@ -12,6 +13,7 @@ import random
 import json
 import re
 import subprocess
+import types
 
 import numpy as np
 import pandas as pd
@@ -22,6 +24,7 @@ import plenty_data_frames
 from common import *
 
 
+# Functions
 def ignore_null(func):
     """Ignores null arguments on the input function"""
     def wrapper(*args):
@@ -31,16 +34,29 @@ def ignore_null(func):
     return wrapper
 
 
+# JSON
 false = False
 true = True
 null = None
 
+
+# Default Values
 s = 'abc'
 l = [1, 2, 3]
 d = {1: 2, 2: 3, 3: 4}
 t = (1, 2, 3)
 
-q = exit
 
+# iPython and Builtins
+q = exit
 min = ignore_null(min)
 max = ignore_null(max)
+
+
+# Plenty
+__plenty_client_builder = plentyservice.client_builder()
+c = types.SimpleNamespace(**{
+    e[6]: getattr(__plenty_client_builder, e)()
+    for e in dir(__plenty_client_builder)
+    if e.startswith('build')
+})
