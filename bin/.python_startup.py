@@ -23,7 +23,7 @@ from common import *
 
 
 def ignore_null(func):
-	"""Ignores null arguments on the input function"""
+    """Ignores null arguments on the input function"""
     def wrapper(*args):
         if func is None or all(e is None for e in args):
             return None
