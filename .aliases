@@ -3,7 +3,7 @@
 
 # Terminal
 alias r='clear'  # clear the console
-alias ghi='history | grep'  # search through command history
+alias his='history | grep'  # search through command history
 alias addenv='addenv'  # add an environment variable
 alias rmenv='addenv -d'  # remove an environment variable
 
@@ -44,9 +44,9 @@ alias i='. intrct'  # interact intelligently
 alias b='bash'  # bash
 alias p2='strtpy 2'  # run file or open REPL with interactive Python 2
 alias p3='strtpy 3'  # run file or open REPL with interactive Python 3
-alias gwb='./gradlew build'  # build cwd project with gradle
-alias gwr='./gradlew run'  # run cwd project with gradle
-alias gwt='./gradlew test'  # test cwd project with gradle
+alias wb='./gradlew build'  # build cwd project with gradle
+alias wr='./gradlew run'  # run cwd project with gradle
+alias wt='./gradlew test'  # test cwd project with gradle
 alias j='/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home/bin/jshell'  # open Java REPL
 
 # Git
@@ -72,7 +72,6 @@ alias gd='git diff'  # git diff
 alias gm='git merge'  # git merge
 alias gmm='gm master'  # git merge master
 alias grh='git reset --hard'  # git reset hard
-alias gnr='. gnr'  # make a new release on GitHub
 
 # Meta
 alias h='hlp'  # help
@@ -85,3 +84,6 @@ alias venv='. venv'  # create and start or just start a virtual environment
 alias dctv='deactivate'  # deactivate a virtual environment
 alias jptn='jupyter notebook'  # jupyter notebook
 alias ldyn='c /Applications/dynamodb_local_latest && r && java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb && c- && r'  # run local dynamo instance
+
+# Plenty
+alias email='email_deploy' # set up an email to be sent when a deploy finishes
