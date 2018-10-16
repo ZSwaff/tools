@@ -4,8 +4,7 @@
 # Terminal
 alias r='clear'  # clear the console
 alias his='history | grep'  # search through command history
-alias addenv='addenv'  # add an environment variable
-alias rmenv='addenv -d'  # remove an environment variable
+alias revr='evr -d'  # remove an environment variable
 
 # Navigation
 alias c='. cdls'  # change directory intelligently
