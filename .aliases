@@ -7,8 +7,8 @@ alias his='history | grep'  # search through command history
 alias revr='evr -d'  # remove an environment variable
 
 # Navigation
-alias c='. cdls'  # change directory intelligently
-alias cd='. cdls'
+alias c='. rnprtc cdlspy'  # change directory intelligently
+alias cd='. rnprtc cdlspy'
 alias c.='c ..'  # change directory up one level
 alias c..='c ../..'  # change directory up two levels
 alias c...='c ../../..'  # change directory up three levels
@@ -49,8 +49,8 @@ alias wt='./gradlew test'  # test cwd project with gradle
 alias j='/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home/bin/jshell'  # open Java REPL
 
 # Git
-alias gcl='. gcl'  # git clone for work
-alias gclp='. gcl -p'  # git clone for personal
+alias gcl='. rnprtc gclpy'  # git clone for work
+alias gclp='. rnprtc gclpy -p'  # git clone for personal
 alias gsew='git config user.email "zack@plenty.ag"'  # git set email for work
 alias gsep='git config user.email "zdfs1121@gmail.com"'  # git set email for personal
 alias glg='git log --graph --pretty=oneline --abbrev-commit'  # git log for convinient reading

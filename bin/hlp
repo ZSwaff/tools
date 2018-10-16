@@ -4,7 +4,7 @@
 # prints info on all the aliases and custom commands
 
 
-from os import path
+import os
 import argparse
 import re
 
@@ -19,7 +19,7 @@ def main():
 
     listing = []
     mapping = {}
-    aliases_fname = path.expanduser(path.join('~', '.aliases'))
+    aliases_fname = os.path.expanduser(os.path.join('~', '.aliases'))
     with open(aliases_fname) as fin:
         for line in fin.readlines()[2:]:
             line = line.strip()
