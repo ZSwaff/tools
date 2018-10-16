@@ -1,0 +1,81 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# decide path to cd intelligently
+
+
+import os
+from os import path
+import argparse
+
+from termcolor import colored
+
+
+ORDERED_ENVVAR_DIRS_TO_CHECK = [
+    'WORKSPACE'
+]
+
+
+def check_parent_for_prefixes(dparent, dprefix):
+    """Checks a given directory to see if it contains the given prefix; if so,
+    asks the user for input as to which is intended.
+
+    Args:
+        dparent (str): The path of the parent directory.
+        dprefix (str): The prefix of the internal directory.
+    Returns:
+        (str): The path found, or None if none exist.
+    """
+    possible_suffixes = [e for e in os.listdir(dparent) if e.startswith(dprefix) and path.isdir(path.join(dparent, e))]
+    if len(possible_suffixes) == 0:
+        return None
+
+    for i, suffix in enumerate(possible_suffixes, 1):
+        print('[{}]: {}'.format(i, colored(suffix, 'blue')))
+    print('[{}]: {}'.format(len(possible_suffixes) + 1, colored('None', 'red')))
+
+    while True:
+        try:
+            choice = int(input('> ')) - 1
+            if not 0 <= choice <= len(possible_suffixes):
+                continue
+            break
+        except ValueError:
+            continue
+
+    if choice == len(possible_suffixes):
+        return None
+    return possible_suffixes[choice]
+
+
+def main():
+    """The main function."""
+    parser = argparse.ArgumentParser(description='A CLI to change directories intelligently, then list the contents.')
+    parser.add_argument('dir', nargs='*', help='the name or prefix of the directory')
+    args = parser.parse_args()
+    dname = path.expanduser(' '.join(args.dir))
+
+    if dname == '':
+        print(path.expanduser('~'))
+        return
+
+    dparents = [os.getcwd()] + [os.environ[e] for e in ORDERED_ENVVAR_DIRS_TO_CHECK]
+
+    for dparent in dparents:
+        print('Checking in ' + colored(dparent, 'blue'))
+        dpath = path.abspath(path.join(dparent, dname))
+        if path.exists(dpath):
+            print(dpath)
+            return
+
+        dpath = check_parent_for_prefixes(dparent, dname)
+        if dpath is not None:
+            print(dpath)
+            return
+
+    print(colored('Could not find ', 'red') + colored(dname, 'blue'))
+    print('.')
+
+
+if __name__ == '__main__':
+    main()

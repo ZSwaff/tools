@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+
+# run a command, then cd into the last line and ls
+
+
+output="$(${1} ${@:2})"
+echo "${output}"
+d="$(echo -e $output | tr "\n" " " | xargs | rev | cut -d " " -f1 | rev)"
+\cd ${d}
+l

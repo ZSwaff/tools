@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# manage environment variables
+
+
+from os import path
+import argparse
+
+
+ENVVAR_FPATH = path.expanduser(path.join('~', '.envvars'))
+
+
+def main():
+    """The main function."""
+    parser = argparse.ArgumentParser(description='A CLI to manage custom environment variables.')
+    parser.add_argument('-d', action='store_true', dest='rm', help='a flag to indicate that the key should be deleted')
+    parser.add_argument('key', nargs='?', help='the name of the variable; disallowed if printing all')
+    parser.add_argument('value', nargs='?', help='the value of the variable; disallowed if deleting')
+    args = parser.parse_args()
+
+    with open(ENVVAR_FPATH, 'r+') as fin:
+        fcontent = [e.strip()[7:] for e in fin.readlines()]
+        envvars = dict([e.split('=') for e in fcontent])
+
+    key, value = args.key, args.value
+    if not args.rm:
+        if value is None:
+            print('\n'.join(fcontent))
+            return
+        if key in envvars:
+            if envvars[key] == value:
+                print('That environment variable already has that value.')
+                return
+            print('Overwriting old value \'{}\'.'.format(envvars[key]))
+        envvars[key] = value
+    else:
+        if key not in envvars:
+            print('That environment variable does not exist.')
+            return
+        envvars.pop(key)
+
+    envvars = sorted(envvars.items())
+
+    with open(ENVVAR_FPATH, 'w') as fout:
+        fout.write('\n'.join(['export {}={}'.format(k, v) for k, v in envvars]))
+
+    print('Restart the shell for changes to take effect.')
+
+
+if __name__ == '__main__':
+    main()
