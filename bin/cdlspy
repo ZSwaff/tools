@@ -12,7 +12,8 @@ from termcolor import colored
 
 
 ORDERED_ENVVAR_DIRS_TO_CHECK = [
-    'WORKSPACE'
+    'WORKSPACE',
+    'DESKTOP'
 ]
 
 
@@ -63,8 +64,10 @@ def main():
 
     dparents = [os.getcwd()] + [os.environ[e] for e in ORDERED_ENVVAR_DIRS_TO_CHECK]
 
-    for dparent in dparents:
-        print('Checking in ' + colored(dparent, 'blue'))
+    for i, dparent in enumerate(dparents):
+        if i != 0:
+            print('Checking in ' + colored(dparent, 'blue'))
+
         dpath = path.abspath(path.join(dparent, dname))
         if path.exists(dpath):
             print('`' + dpath)
