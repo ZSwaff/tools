@@ -6,6 +6,6 @@
 
 output="$(${1} ${@:2})"
 echo "${output}"
-d="$(echo -e $output | tr "\n" " " | xargs | rev | cut -d " " -f1 | rev)"
-\cd ${d}
+d="$(echo -e $output | tr "\n" " " | rev | cut -d "\`" -f1 | rev)"
+\cd "${d}"
 l

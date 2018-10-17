@@ -34,18 +34,20 @@ def check_parent_for_prefixes(dparent, dprefix):
         print('[{}]: {}'.format(i, colored(suffix, 'blue')))
     print('[{}]: {}'.format(len(possible_suffixes) + 1, colored('None', 'red')))
 
-    while True:
-        try:
-            choice = int(input('> ')) - 1
-            if not 0 <= choice <= len(possible_suffixes):
-                continue
-            break
-        except ValueError:
-            continue
+    # todo fix
+    return None
+    # while True:
+    #     try:
+    #         choice = int(input('> ')) - 1
+    #         if not 0 <= choice <= len(possible_suffixes):
+    #             continue
+    #         break
+    #     except ValueError:
+    #         continue
 
-    if choice == len(possible_suffixes):
-        return None
-    return possible_suffixes[choice]
+    # if choice == len(possible_suffixes):
+    #     return None
+    # return possible_suffixes[choice]
 
 
 def main():
@@ -56,7 +58,7 @@ def main():
     dname = path.expanduser(' '.join(args.dir))
 
     if dname == '':
-        print(path.expanduser('~'))
+        print('`' + path.expanduser('~'))
         return
 
     dparents = [os.getcwd()] + [os.environ[e] for e in ORDERED_ENVVAR_DIRS_TO_CHECK]
@@ -65,16 +67,16 @@ def main():
         print('Checking in ' + colored(dparent, 'blue'))
         dpath = path.abspath(path.join(dparent, dname))
         if path.exists(dpath):
-            print(dpath)
+            print('`' + dpath)
             return
 
         dpath = check_parent_for_prefixes(dparent, dname)
         if dpath is not None:
-            print(dpath)
+            print('`' + dpath)
             return
 
     print(colored('Could not find ', 'red') + colored(dname, 'blue'))
-    print('.')
+    print('`.')
 
 
 if __name__ == '__main__':
