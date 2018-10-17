@@ -75,7 +75,7 @@ alias grh='git reset --hard'  # git reset hard
 # Meta
 alias h='hlp'  # help
 alias src='source ~/.zshrc'  # re-source the command line tools
-alias et='s ~/bin && s ~/.zshrc && s ~/.aliases'  # edit command line tools
+alias et='s ~/bin && s ~/.zshrc && s ~/.aliases_plenty && s ~/.aliases'  # edit command line tools
 alias redo='sudo $(fc -ln -1)'  # redo a command with sudo privileges
 
 # Random
