@@ -83,6 +83,3 @@ alias venv='. venv'  # create and start or just start a virtual environment
 alias dctv='deactivate'  # deactivate a virtual environment
 alias jptn='jupyter notebook'  # jupyter notebook
 alias ldyn='c /Applications/dynamodb_local_latest && r && java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb && c- && r'  # run local dynamo instance
-
-# Plenty
-alias email='email_deploy' # set up an email to be sent when a deploy finishes

@@ -19,21 +19,21 @@ def main():
 
     listing = []
     mapping = {}
-    aliases_fname = os.path.expanduser(os.path.join('~', '.aliases'))
-    with open(aliases_fname) as fin:
-        for line in fin.readlines()[2:]:
-            line = line.strip()
-            if line.startswith('#'):
-                listing.append(colored(line[1:].strip(), 'blue'))
-                continue
-            if line == '':
-                listing.append('')
-                continue
-            match = re.match(r'alias (\w*)=\'.*\'  # (.*)', line)
-            if match is None:
-                continue
-            listing.append('{}: {}'.format(colored(match.group(1), 'green'), match.group(2)))
-            mapping[match.group(1)] = match.group(2)
+    for fname in ['.aliases', '.aliases_plenty']:
+        with open(os.path.expanduser(os.path.join('~', fname))) as fin:
+            for line in fin.readlines()[2:]:
+                line = line.strip()
+                if line.startswith('#'):
+                    listing.append(colored(line[1:].strip(), 'blue'))
+                    continue
+                if line == '':
+                    listing.append('')
+                    continue
+                match = re.match(r'alias (\w*)=\'.*\'  # (.*)', line)
+                if match is None:
+                    continue
+                listing.append('{}: {}'.format(colored(match.group(1), 'green'), match.group(2)))
+                mapping[match.group(1)] = match.group(2)
 
     cmd = args.cmd
     if cmd is None:
