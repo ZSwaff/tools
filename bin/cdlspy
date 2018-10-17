@@ -55,9 +55,9 @@ def main():
     """The main function."""
     parser = argparse.ArgumentParser(description='A CLI to change directories intelligently, then list the contents.')
     parser.add_argument('dir', nargs='*', help='the name or prefix of the directory')
-    args = parser.parse_args()
-    dname = path.expanduser(' '.join(args.dir))
+    args, _ = parser.parse_known_args()
 
+    dname = path.expanduser(' '.join(args.dir))
     if dname == '':
         print('`' + path.expanduser('~'))
         return
