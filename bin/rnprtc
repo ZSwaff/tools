@@ -5,9 +5,10 @@
 
 
 output="$(${1} ${@:2})"
-echo "$(echo -e $output | cut -d "\`" -f1)"
-d="$(echo -e $output | tr "\n" " " | rev | cut -d "\`" -f1 | rev | xargs)"
-echo "${d}"
+r="$(echo -e ${output} | cut -d "\`" -f1)"
+[[ ! -z "${r// }" ]] && echo "${r}"
+d="$(echo -e ${output} | tr "\n" " " | rev | cut -d "\`" -f1 | rev)"
+echo "${d// }"
 echo "--------------------"
-\cd "${d}"
+\cd "${d// }"
 l
