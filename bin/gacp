@@ -6,7 +6,7 @@
 
 set -e
 
-if [[ -z $2 ]]; then
+if [[ -z $1 ]]; then
 	echo -n "Commit message: "; read m
 else
 	m="${*}"
@@ -17,9 +17,9 @@ git commit -m "${m}"
 
 b="$(git status -sb)"
 if [[ $ == *"...origin/"* ]]; then
-	git push --set-upstream origin "$(git rev-parse --abbrev-ref HEAD)"
-else
 	git push "$(git rev-parse --abbrev-ref HEAD)"
+else
+	git push --set-upstream origin "$(git rev-parse --abbrev-ref HEAD)"
 fi
 
 
