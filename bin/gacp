@@ -6,7 +6,7 @@
 
 set -e
 
-if [[ $1 = "" ]]; then
+if [[ -z $1 ]]; then
 	echo -n "Commit message: "; read m
 else
 	m="$*"

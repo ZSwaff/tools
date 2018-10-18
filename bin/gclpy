@@ -10,8 +10,7 @@ import subprocess
 
 from termcolor import colored
 
-# sys.path.append(os.path.expanduser(os.path.join('~', 'bin')))
-from common import run_command
+from common import run_command, RpclIOManager
 
 
 def main():
@@ -19,37 +18,38 @@ def main():
     parser = argparse.ArgumentParser(description='A CLI to clone a project.')
     parser.add_argument('-p', dest='personal', action='store_true', help='indicates this is a personal project')
     parser.add_argument('project', help='the name of the repo if in PlentyAg or ZSwaff, or the full URL')
-    args, _ = parser.parse_known_args()
+    parser = RpclIOManager(parser)
+    args = parser.parse_args()
 
     url, personal = args.project, args.personal
     if not url.startswith('git@'):
         org = 'ZSwaff' if personal else 'PlentyAg'
         suf = '-personal' if personal else '.com'
         url = 'git@github{}:{}/{}.git'.format(suf, org, url)
-    print(url)
+    rpcl_print(url)
 
     project = url.split('/')[-1][:-4]
     if os.path.exists(project):
-        print(colored('Destination file already exists', 'red'))
-        print('`.')
-        return
+        rpcl_print(colored('Destination file already exists', 'red'))
+        rpcl_exit('.')
 
     try:
         run_command('git ls-remote ' + url)
     except subprocess.CalledProcessError:
-        print(colored('Remote repo does not exist', 'red'))
-        print('`.')
-        return
+        rpcl_print(colored('Remote repo does not exist', 'red'))
+        rpcl_exit('.')
 
     run_command('git clone ' + url)
 
     if personal:
         run_command('git config user.email "zdfs1121@gmail.com"')
-    print('If this is not a {} project, run {}'.format(
+    rpcl_print('If this is not a {} project, run {}.'.format(
         'personal' if personal else 'work',
         colored('gsew' if personal else 'gsep', 'blue')
     ))
-    print('`' + project)
+    rpcl_print('`' + project)
+
+    parser.close()
 
 
 if __name__ == '__main__':

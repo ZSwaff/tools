@@ -14,6 +14,7 @@ import json
 import re
 import subprocess
 import types
+import argparse
 
 import numpy as np
 import pandas as pd
@@ -22,27 +23,6 @@ import plentyservice
 import plenty_data_frames
 
 from common import *
-
-
-# Functions
-def ignore_null(func):
-    """Ignores null arguments on the input function."""
-    def wrapper(*args):
-        if func is None or all(e is None for e in args):
-            return None
-        return func(e for e in args if e is not None)
-    return wrapper
-
-
-def load_f(fname):
-    """Loads a file."""
-    with open(os.path.expanduser(fname)) as fin:
-        return fin.read()
-
-def load_j(fname):
-    """Loads a file as JSON."""
-    with open(os.path.expanduser(fname)) as fin:
-        return json.load(fin)
 
 
 # JSON
