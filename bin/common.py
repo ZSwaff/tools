@@ -66,9 +66,11 @@ class RpclIOManager:
         self.__input_args = None
         self.__input_index = 0
 
-        builtins.rpcl_print = self.print
-        builtins.rpcl_input = self.input
-        builtins.rpcl_exit = self.exit
+        self.__old_print = builtins.print
+        builtins.print = self.print
+        self.__old_input = builtins.input
+        builtins.input = self.input
+        builtins.exit = self.exit
 
     def parse_args(self):
         """Parses the args from the command line.
@@ -94,8 +96,7 @@ class RpclIOManager:
         if self.__input_args is None:
             raise RuntimeError('<RpclIOManager>.parse_args() must be called')
         if self.__input_index == len(self.__input_args):
-            print('`')
-            sys.exit(0)
+            self.exit()
         self.__input_index += 1
         return self.__input_args[self.__input_index - 1]
 
@@ -104,17 +105,17 @@ class RpclIOManager:
         if self.__input_args is None:
             raise RuntimeError('<RpclIOManager>.parse_args() must be called')
         if self.__input_index == len(self.__input_args):
-            print(*args, **kwargs)
+            self.__old_print(*args, **kwargs)
 
     def exit(self, *args, **kwargs):
         """Print the return message and exits."""
-        print('`', end='')
-        print(*args, **kwargs)
+        self.__old_print('`', end='')
+        self.__old_print(*args, **kwargs)
         self.close()
         sys.exit(0)
 
     def close(self):
         """Cleans up the manager."""
-        delattr(builtins, 'rpcl_print')
-        delattr(builtins, 'rpcl_input')
-        delattr(builtins, 'rpcl_exit')
+        builtins.print = self.__old_print
+        builtins.input = self.__old_input
+        delattr(builtins, 'exit')

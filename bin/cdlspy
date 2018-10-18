@@ -34,12 +34,12 @@ def check_parent_for_prefixes(dparent, dprefix):
         return None
 
     for i, suffix in enumerate(possible_suffixes, 1):
-        rpcl_print('[{}]: {}'.format(i, colored(suffix, 'blue')))
-    rpcl_print('[{}]: {}'.format(len(possible_suffixes) + 1, colored('None', 'red')))
+        print('[{}]: {}'.format(i, colored(suffix, 'blue')))
+    print('[{}]: {}'.format(len(possible_suffixes) + 1, colored('None', 'red')))
 
     while True:
         try:
-            choice = int(rpcl_input()) - 1
+            choice = int(input()) - 1
             if not 0 <= choice <= len(possible_suffixes):
                 continue
             break
@@ -55,31 +55,29 @@ def main():
     """The main function."""
     parser = argparse.ArgumentParser(description='A CLI to change directories intelligently, then list the contents.')
     parser.add_argument('dir', nargs='*', help='the name or prefix of the directory')
-    parser = RpclIOManager(parser)
+    RpclIOManager(parser)
     args = parser.parse_args()
 
     dname = path.expanduser(' '.join(args.dir))
     if dname == '':
-        rpcl_exit(path.expanduser('~'))
+        exit(path.expanduser('~'))
 
     dparents = [os.getcwd()] + [os.environ[e] for e in ORDERED_ENVVAR_DIRS_TO_CHECK]
 
     for i, dparent in enumerate(dparents):
         if i != 0:
-            rpcl_print('Checking in ' + colored(dparent, 'blue'))
+            print('Checking in ' + colored(dparent, 'blue'))
 
         dpath = path.abspath(path.join(dparent, dname))
         if path.exists(dpath):
-            rpcl_exit(dpath)
+            exit(dpath)
 
         dpath = check_parent_for_prefixes(dparent, dname)
         if dpath is not None:
-            rpcl_exit(dpath)
+            exit(dpath)
 
-    rpcl_print(colored('Could not find ', 'red') + colored(dname, 'blue'))
-    rpcl_exit('.')
-
-    parser.close()
+    print(colored('Could not find ', 'red') + colored(dname, 'blue'))
+    exit('.')
 
 
 if __name__ == '__main__':

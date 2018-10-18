@@ -18,7 +18,7 @@ def main():
     parser = argparse.ArgumentParser(description='A CLI to clone a project.')
     parser.add_argument('-p', dest='personal', action='store_true', help='indicates this is a personal project')
     parser.add_argument('project', help='the name of the repo if in PlentyAg or ZSwaff, or the full URL')
-    parser = RpclIOManager(parser)
+    RpclIOManager(parser)
     args = parser.parse_args()
 
     url, personal = args.project, args.personal
@@ -26,30 +26,28 @@ def main():
         org = 'ZSwaff' if personal else 'PlentyAg'
         suf = '-personal' if personal else '.com'
         url = 'git@github{}:{}/{}.git'.format(suf, org, url)
-    rpcl_print(url)
+    print(url)
 
     project = url.split('/')[-1][:-4]
     if os.path.exists(project):
-        rpcl_print(colored('Destination file already exists', 'red'))
-        rpcl_exit('.')
+        print(colored('Destination file already exists', 'red'))
+        exit('.')
 
     try:
         run_command('git ls-remote ' + url)
     except subprocess.CalledProcessError:
-        rpcl_print(colored('Remote repo does not exist', 'red'))
-        rpcl_exit('.')
+        print(colored('Remote repo does not exist', 'red'))
+        exit('.')
 
     run_command('git clone ' + url)
 
     if personal:
         run_command('git config user.email "zdfs1121@gmail.com"')
-    rpcl_print('If this is not a {} project, run {}.'.format(
+    print('If this is not a {} project, run {}.'.format(
         'personal' if personal else 'work',
         colored('gsew' if personal else 'gsep', 'blue')
     ))
-    rpcl_print('`' + project)
-
-    parser.close()
+    exit(project)
 
 
 if __name__ == '__main__':
