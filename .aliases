@@ -64,7 +64,6 @@ alias gbd='git branch -D'  # git branch delete
 alias gpl='git pull'  # git pull
 alias gps='git push'  # git push
 alias gacp='b gacp'  # git add, commit, then push
-alias gacpp='b gacpp'  # git add, commit, pull, then push
 alias gs='git stash'  # git stash
 alias gsp='git stash pop'  # git stash pop
 alias gd='git diff'  # git diff
