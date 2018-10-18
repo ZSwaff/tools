@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+
+# delete a virtual environment
+
+
+set -e
+
+rm -rf "${HOME}/venv/${*}"
+
+set +e

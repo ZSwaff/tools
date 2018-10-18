@@ -30,13 +30,13 @@ def main():
 
     project = url.split('/')[-1][:-4]
     if os.path.exists(project):
-        print(colored('Destination file already exists', 'red'))
+        print(colored('Destination file already exists.', 'red'))
         exit('.')
 
     try:
         run_command('git ls-remote ' + url)
     except subprocess.CalledProcessError:
-        print(colored('Remote repo does not exist', 'red'))
+        print(colored('Remote repo does not exist.', 'red'))
         exit('.')
 
     run_command('git clone ' + url)

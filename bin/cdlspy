@@ -66,7 +66,7 @@ def main():
 
     for i, dparent in enumerate(dparents):
         if i != 0:
-            print('Checking in ' + colored(dparent, 'blue'))
+            print('Checking in {}'.format(colored(dparent, 'blue')))
 
         dpath = path.abspath(path.join(dparent, dname))
         if path.exists(dpath):
@@ -76,7 +76,7 @@ def main():
         if dpath is not None:
             exit(dpath)
 
-    print(colored('Could not find ', 'red') + colored(dname, 'blue'))
+    print(colored('Could not find {}.', 'red').format(colored(dname, 'blue')))
     exit('.')
 
 

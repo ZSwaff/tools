@@ -4,6 +4,7 @@
 # Terminal
 alias r='clear'  # clear the console
 alias his='history | grep'  # search through command history
+alias evr='evr'  # list or add to environment variables
 alias revr='evr -d'  # remove an environment variable
 
 # Navigation
@@ -79,6 +80,7 @@ alias redo='sudo $(fc -ln -1)'  # redo a command with sudo privileges
 
 # Random
 alias venv='. venv'  # create and start or just start a virtual environment
-alias dctv='deactivate'  # deactivate a virtual environment
+alias dvenv='deactivate &> /dev/null'  # deactivate a virtual environment
+alias rvenv='dvenv; rvenv'  # delete a virtual environment
 alias jptn='jupyter notebook'  # jupyter notebook
 alias ldyn='c /Applications/dynamodb_local_latest && r && java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb && c- && r'  # run local dynamo instance

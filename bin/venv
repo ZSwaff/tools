@@ -6,20 +6,19 @@
 
 set -e
 
-name="${1}"
+name="${*}"
 dname="${HOME}/venv/${name}"
 actvf="${dname}/bin/activate"
 
 if [[ ! -d $dname ]]; then
-	echo "Creating virtual environment ${name}."
-	sudo -H virtualenv "${dname}"
+	echo "Creating virtual environment"
+	python3 -m venv "${dname}"
 fi
 
 if [[ ! -f $actvf ]]; then
-	echo "Corrupted virtual environment ${name}. Exiting."
-	exit 1
+	echo "Corrupted virtual environment."
+else
+	source "${actvf}"
 fi
-
-source "${actvf}"
 
 set +e

@@ -29,7 +29,6 @@ export CLICOLOR_FORCE=1
 autoload -U colors
 colors
 
-source /usr/local/bin/virtualenvwrapper.sh
 . ~/.aliases
 . ~/.aliases_plenty
 
