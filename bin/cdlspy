@@ -32,9 +32,11 @@ def check_parent_for_prefixes(dparent, dprefix):
     possible_suffixes = [e for e in os.listdir(dparent) if e.startswith(dprefix) and path.isdir(path.join(dparent, e))]
     if len(possible_suffixes) == 0:
         return None
+    if len(possible_suffixes) == 1:
+        return os.path.join(dparent, possible_suffixes[0])
 
-    for i, suffix in enumerate(possible_suffixes, 1):
-        print('[{}]: {}'.format(i, colored(suffix, 'blue')))
+    for i, suffix in enumerate(possible_suffixes):
+        print('[{}]: {}'.format(i + 1, colored(suffix, 'blue')))
     print('[{}]: {}'.format(len(possible_suffixes) + 1, colored('None', 'red')))
 
     while True:
