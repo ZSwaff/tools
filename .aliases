@@ -22,6 +22,7 @@ alias ls='ls -a -w1'
 alias o='open'  # open
 alias o.='o .'  # open cwd in finder
 alias rm='trash'
+alias sgw='ssh -i ~/.ssh/gh/work'  # ssh with work GitHub key
 
 # Installation
 alias bi='brew install'  # brew install
