@@ -7,10 +7,39 @@ from __future__ import print_function
 import builtins
 import sys
 import subprocess
+import datetime
+
+
+def now():
+    """Returns the datetime now in UTC.
+
+    Returns:
+        (datetime.datetime): The datetime now.
+    """
+    return datetime.datetime.utcnow()
+
+
+def iso(dt):
+    """Returns a datetime as a string.
+
+    Args:
+        dt (datetime.datetime): The datetime to format.
+
+    Returns:
+        (str): The datetime as a string.
+    """
+    return dt.isoformat() + 'Z'
 
 
 def ignore_null(func):
-    """Ignores null arguments on the input function."""
+    """Ignores null arguments on the input function.
+
+    Args:
+        func (function): The function to wrap.
+
+    Returns:
+        (function): The wrapped function.
+    """
     def wrapper(*args):
         if func is None or all(e is None for e in args):
             return None
@@ -19,13 +48,27 @@ def ignore_null(func):
 
 
 def load_f(fname):
-    """Loads a file."""
+    """Loads a file.
+
+    Args:
+        fname (str): The file path to load.
+
+    Returns:
+        (str): The contents of the loaded file.
+    """
     with open(os.path.expanduser(fname)) as fin:
         return fin.read()
 
 
 def load_j(fname):
-    """Loads a file as JSON."""
+    """Loads a file as JSON.
+
+    Args:
+        fname (str): The file path to load.
+
+    Returns:
+        (dict): The contents of the loaded JSON file.
+    """
     with open(os.path.expanduser(fname)) as fin:
         return json.load(fin)
 
