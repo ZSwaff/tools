@@ -29,13 +29,13 @@ def check_parent_for_prefixes(dparent, dprefix):
     Returns:
         (str): The path found, or None if none exist.
     """
-    possible_suffixes = [e for e in os.listdir(dparent) if e.startswith(dprefix) and path.isdir(path.join(dparent, e))]
+    possible_suffixes = sorted([e for e in os.listdir(dparent) if e.startswith(dprefix) and path.isdir(path.join(dparent, e))])
     if len(possible_suffixes) == 0:
         return None
     if len(possible_suffixes) == 1:
         return os.path.join(dparent, possible_suffixes[0])
 
-    for i, suffix in enumerate(sorted(possible_suffixes)):
+    for i, suffix in enumerate(possible_suffixes):
         print('[{}]: {}'.format(i + 1, colored(suffix, 'blue')))
     print('[{}]: {}'.format(len(possible_suffixes) + 1, colored('None', 'red')))
 
