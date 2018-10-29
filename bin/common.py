@@ -3,6 +3,7 @@
 """Common Python functions and classes."""
 
 
+from __future__ import print_function
 import builtins
 import sys
 import subprocess

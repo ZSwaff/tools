@@ -20,7 +20,8 @@ import numpy as np
 import pandas as pd
 
 import plentyservice
-import plenty_data_frames
+if sys.version_info > (3, 0):
+    import plenty_data_frames
 
 from common import *
 
@@ -46,8 +47,14 @@ max = ignore_null(max)
 
 # Plenty
 __plenty_client_builder = plentyservice.client_builder()
-c = types.SimpleNamespace(**{
+__plenty_clients = {
     e[6]: getattr(__plenty_client_builder, e)()
     for e in dir(__plenty_client_builder)
     if e.startswith('build')
-})
+}
+if sys.version_info > (3, 3):
+    c = types.SimpleNamespace(**__plenty_clients)
+else:
+    c = lambda: None
+    for k, v in __plenty_clients.items():
+        setattr(c, k, v)
