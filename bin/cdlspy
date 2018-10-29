@@ -35,7 +35,7 @@ def check_parent_for_prefixes(dparent, dprefix):
     if len(possible_suffixes) == 1:
         return os.path.join(dparent, possible_suffixes[0])
 
-    for i, suffix in enumerate(possible_suffixes):
+    for i, suffix in enumerate(sorted(possible_suffixes)):
         print('[{}]: {}'.format(i + 1, colored(suffix, 'blue')))
     print('[{}]: {}'.format(len(possible_suffixes) + 1, colored('None', 'red')))
 
