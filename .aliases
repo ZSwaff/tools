@@ -46,7 +46,9 @@ alias b='bash'  # bash
 alias p2='strtpy 2'  # run file or open REPL with interactive Python 2
 alias p3='strtpy 3'  # run file or open REPL with interactive Python 3
 alias wb='./gradlew build'  # build cwd project with gradle
+alias wbw='./gradlew build -PwithWebpack'  # build cwd project with gradle and webpack
 alias wr='./gradlew run'  # run cwd project with gradle
+alias wrw='./gradlew run -PwithWebpack'  # run cwd project with gradle and webpack
 alias wt='./gradlew test'  # test cwd project with gradle
 alias j='/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home/bin/jshell'  # open Java REPL
 
