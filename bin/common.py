@@ -10,6 +10,19 @@ import subprocess
 import datetime
 
 
+def is_ipynb():
+    """Returns whether the current environment is an iPython Notebook.
+
+    Returns:
+        (bool): Whether the current environment is an iPython Notebook.
+    """
+    try:
+        get_ipython()
+        return True
+    except NameError:
+        return False
+
+
 def now():
     """Returns the datetime now in UTC.
 
