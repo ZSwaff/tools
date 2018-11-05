@@ -32,7 +32,7 @@ def now():
     return datetime.datetime.utcnow()
 
 
-def iso(dt):
+def iso(dt=None):
     """Returns a datetime as a string.
 
     Args:
@@ -41,6 +41,8 @@ def iso(dt):
     Returns:
         (str): The datetime as a string.
     """
+    if dt is None:
+        dt = now()
     return dt.isoformat() + 'Z'
 
 
