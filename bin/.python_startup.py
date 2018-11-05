@@ -20,8 +20,7 @@ import numpy as np
 import pandas as pd
 
 import plentyservice
-if sys.version_info > (3, 0):
-    import plenty_data_frames
+import plenty_data_frames
 
 from common import *
 
