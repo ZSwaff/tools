@@ -46,6 +46,18 @@ def iso(dt=None):
     return dt.isoformat() + 'Z'
 
 
+def from_iso(dt_str):
+    """Returns a datetime from a string.
+
+    Args:
+        dt_str (str): The datetime to parse.
+
+    Returns:
+        (datetime.datetime): The datetime.
+    """
+    return datetime.datetime.strptime(dt_str, '%Y-%m-%dT%H:%M:%S.%fZ')
+
+
 def ignore_null(func):
     """Ignores null arguments on the input function.
 
