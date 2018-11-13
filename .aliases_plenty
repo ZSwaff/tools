@@ -5,5 +5,7 @@
 alias cli='${WORKSPACE}/cli/plentyservice/pcli'  # run Plenty CLI
 alias qr='${WORKSPACE}/qr_generator/plentyqrgen/gen'  # generate QR code
 alias bs='p3 ${WORKSPACE}/beansprout/beansprout.py'  # run beansprout
+alias hr='create_release.py'  # creates a new GitHub release
 alias wrb='docker rm app; bs initStaging beansprout.json && bs buildStaging beansprout.json && bs runStaging beansprout.json'  # clean docker and build and run JAR with beansprout
 alias email='email_deploy'  # set up an email to be sent when a deploy finishes
+alias stage='stage_branch.py'  # activates or deactivates a branch as a staging application
