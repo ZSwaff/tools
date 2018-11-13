@@ -29,7 +29,7 @@ def check_parent_for_prefixes(dparent, dprefix):
     Returns:
         (str): The path found, or None if none exist.
     """
-    possible_suffixes = sorted([e.lower() for e in os.listdir(dparent) if dprefix in e and path.isdir(path.join(dparent, e))])
+    possible_suffixes = sorted([e.lower() for e in os.listdir(dparent) if dprefix in e.lower() and path.isdir(path.join(dparent, e))])
     if len(possible_suffixes) == 0:
         return None
     if len(possible_suffixes) == 1:
