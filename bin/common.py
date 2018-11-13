@@ -9,6 +9,8 @@ import sys
 import subprocess
 import datetime
 
+from termcolor import colored
+
 
 def is_ipynb():
     """Returns whether the current environment is an iPython Notebook.
@@ -113,10 +115,10 @@ def run_command(cmd, path=None, verbose=False):
         (str): The result of the command.
     """
     if verbose:
-        print(cmd)
+        print(colored(cmd, 'blue'))
     result = subprocess.check_output(cmd, cwd=path, shell=True).decode()
     if verbose:
-        print(' > ' + result)
+        print(colored(result, 'green'))
     return result
 
 
