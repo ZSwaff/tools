@@ -19,7 +19,7 @@ ORDERED_ENVVAR_DIRS_TO_CHECK = [
 ]
 
 
-def check_parent_for_prefixes(dparent, dprefix):
+def check_parent_for_matches(dparent, dprefix):
     """Checks a given directory to see if it contains the given prefix; if so,
     asks the user for input as to which is intended.
 
@@ -29,7 +29,7 @@ def check_parent_for_prefixes(dparent, dprefix):
     Returns:
         (str): The path found, or None if none exist.
     """
-    possible_suffixes = sorted([e.lower() for e in os.listdir(dparent) if dprefix in e.lower() and path.isdir(path.join(dparent, e))])
+    possible_suffixes = sorted([e for e in os.listdir(dparent) if dprefix in e.lower() and path.isdir(path.join(dparent, e))])
     if len(possible_suffixes) == 0:
         return None
     if len(possible_suffixes) == 1:
@@ -70,11 +70,7 @@ def main():
         if i != 0:
             print('Checking in {}'.format(colored(dparent, 'blue')))
 
-        dpath = path.abspath(path.join(dparent, dname))
-        if path.exists(dpath):
-            exit(dpath)
-
-        dpath = check_parent_for_prefixes(dparent, dname)
+        dpath = check_parent_for_matches(dparent, dname)
         if dpath is not None:
             exit(dpath)
 
