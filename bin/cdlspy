@@ -34,7 +34,7 @@ def check_parent_for_matches(dparent, dname):
     for i, e in enumerate(glob.iglob(dparent + '/**/', recursive=True)):
         if i >= MAX_PATHS_TO_CHECK:
             break
-        if dname in e.lower() and (len(paths) == 0 or not e.startswith(paths[-1])):
+        if dname.lower() in e.lower() and (len(paths) == 0 or not e.startswith(paths[-1])):
             paths.append(e)
     paths = sorted(paths)
     if len(paths) == 0:
@@ -88,4 +88,8 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except Exception as ex:
+        print(repr(ex))
+        exit('.')
