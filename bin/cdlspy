@@ -17,6 +17,7 @@ ORDERED_ENVVAR_DIRS_TO_CHECK = [
     'WORKSPACE',
     'DESKTOP'
 ]
+MAX_PATHS_TO_CHECK = 10000
 
 
 def check_parent_for_matches(dparent, dname):
@@ -29,11 +30,13 @@ def check_parent_for_matches(dparent, dname):
     Returns:
         (str): The path found, or None if none exist.
     """
-    paths = sorted([
-        e 
-        for e in glob.iglob(dparent + '**/*', recursive=True) 
-        if dname.lower() in e.lower() and os.path.isdir(os.path.join(dparent, e))
-    ])
+    paths = []
+    for i, e in enumerate(glob.iglob(dparent + '/**/', recursive=True)):
+        if i >= MAX_PATHS_TO_CHECK:
+            break
+        if dname in e.lower() and (len(paths) == 0 or not e.startswith(paths[-1])):
+            paths.append(e)
+    paths = sorted(paths)
     if len(paths) == 0:
         return None
     if len(paths) == 1:
@@ -67,7 +70,7 @@ def main():
     dname = os.path.expanduser(' '.join(args.dir))
     if dname == '':
         exit(os.path.expanduser('~'))
-    if dname.startswith('/'):
+    if dname.startswith('/') or dname.startswith('.'):
         exit(dname)
 
     dparents = [os.getcwd()] + [os.environ[e] for e in ORDERED_ENVVAR_DIRS_TO_CHECK]
