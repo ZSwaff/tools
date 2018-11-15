@@ -31,12 +31,16 @@ def check_parent_for_matches(dparent, dname):
         (str): The path found, or None if none exist.
     """
     paths = []
-    for i, e in enumerate(glob.iglob(dparent + '/**/', recursive=True)):
-        if i >= MAX_PATHS_TO_CHECK:
+    for recursive in [False, True]:
+        for i, e in enumerate(glob.iglob(dparent + '/**/', recursive=recursive)):
+            if i >= MAX_PATHS_TO_CHECK:
+                break
+            if dname.lower() in e.lower() and (len(paths) == 0 or not e.startswith(paths[-1])):
+                paths.append(e)
+        if len(paths) != 0:
             break
-        if dname.lower() in e.lower() and (len(paths) == 0 or not e.startswith(paths[-1])):
-            paths.append(e)
     paths = sorted(paths)
+
     if len(paths) == 0:
         return None
     if len(paths) == 1:
