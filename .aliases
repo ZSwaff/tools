@@ -74,6 +74,7 @@ alias gd='git diff'  # git diff
 alias gm='git merge'  # git merge
 alias gmm='gm master'  # git merge master
 alias grh='git reset --hard'  # git reset hard
+alias hb='hub browse'
 
 # Meta
 alias h='hlp'  # help
