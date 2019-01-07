@@ -13,7 +13,6 @@ import random
 import json
 import re
 import subprocess
-import types
 import argparse
 
 import numpy as np
@@ -40,6 +39,7 @@ t = (1, 2, 3)
 
 # iPython and Builtins
 q = exit
+r = clear
 min = ignore_null(min)
 max = ignore_null(max)
 
@@ -51,9 +51,6 @@ __plenty_clients = {
     for e in dir(__plenty_client_builder)
     if e.startswith('build')
 }
-if sys.version_info > (3, 3):
-    c = types.SimpleNamespace(**__plenty_clients)
-else:
-    c = lambda: None
-    for k, v in __plenty_clients.items():
-        setattr(c, k, v)
+c = lambda: None
+for k, v in __plenty_clients.items():
+    setattr(c, k, v)
