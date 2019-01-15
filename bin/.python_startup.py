@@ -39,7 +39,6 @@ t = (1, 2, 3)
 
 # iPython and Builtins
 q = exit
-r = clear
 min = ignore_null(min)
 max = ignore_null(max)
 
