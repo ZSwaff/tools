@@ -7,7 +7,7 @@ from __future__ import print_function
 import builtins
 import sys
 import subprocess
-import datetime
+from datetime import datetime
 
 from termcolor import colored
 
@@ -31,14 +31,14 @@ def now():
     Returns:
         (datetime.datetime): The datetime now.
     """
-    return datetime.datetime.utcnow()
+    return datetime.utcnow()
 
 
 def iso(dt=None):
     """Returns a datetime as a string.
 
     Args:
-        dt (datetime.datetime): The datetime to format.
+        dt (datetime): The datetime to format.
 
     Returns:
         (str): The datetime as a string.
@@ -55,9 +55,9 @@ def from_iso(dt_str):
         dt_str (str): The datetime to parse.
 
     Returns:
-        (datetime.datetime): The datetime.
+        (datetime): The datetime.
     """
-    return datetime.datetime.strptime(dt_str, '%Y-%m-%dT%H:%M:%S.%fZ')
+    return datetime.strptime(dt_str, '%Y-%m-%dT%H:%M:%S.%fZ')
 
 
 def ignore_null(func):
