@@ -47,11 +47,8 @@ max = ignore_null(max)
 
 # Plenty
 __plenty_client_builder = plentyservice.client_builder()
-__plenty_clients = {
-    e[6]: getattr(__plenty_client_builder, e)()
-    for e in dir(__plenty_client_builder)
-    if e.startswith('build')
-}
-c = lambda: None
-for k, v in __plenty_clients.items():
-    setattr(c, k, v)
+cli = lambda: None
+for attr in dir(__plenty_client_builder):
+    if not attr.startswith('build'):
+        continue
+    setattr(cli, attr[6:-7], getattr(__plenty_client_builder, attr)())
