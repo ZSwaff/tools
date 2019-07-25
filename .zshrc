@@ -31,5 +31,6 @@ colors
 
 . ~/.aliases
 . ~/.aliases_plenty
+. ~/.aliases_kubectl
 
 export PATH=/Users/zackswafford/bin:/Users/zackswafford/Desktop/workspace/plenty_service_automation:/Users/zackswafford/Desktop/workspace/plenty_service_automation/user_management:$PATH

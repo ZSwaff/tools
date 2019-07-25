@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+
+# kubernetes switch cluster
+
+
+set -e
+
+terraform workspace select "${1}"
+kubectl config use-context arn:aws:eks:us-west-2:617489010939:cluster/plenty-"$1"-cluster
+
+if [[ $1 = "prod" ]]; then
+   git checkout master
+else
+   git checkout "$1"
+fi
