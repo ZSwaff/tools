@@ -60,6 +60,20 @@ def from_iso(dt_str):
     return datetime.strptime(dt_str, '%Y-%m-%dT%H:%M:%S.%fZ')
 
 
+def epoch(dt=None):
+    """Returns a datetime as seconds from the epoch.
+
+    Args:
+        dt (datetime): The datetime to format.
+
+    Returns:
+        (float): The datetime as seconds from the epoch.
+    """
+    if dt is None:
+        dt = now()
+    return dt.timestamp()
+
+
 def ignore_null(func):
     """Ignores null arguments on the input function.
 
