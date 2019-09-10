@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# open current branch and path in GitHub
+
+import re
+
+from common import run_command
+
+def main():
+    """The main function."""
+    root = run_command('git config --get remote.origin.url')
+    root = re.sub(r'^git@github\.com:(?P<relpath>.*)\.git$', r'https://github.com/\g<relpath>', root)
+    branch = run_command('git rev-parse --abbrev-ref HEAD')
+    dpath = run_command('git rev-parse --show-prefix')
+    url = f'{root}/tree/{branch}/{dpath}'
+    run_command('open {}'.format(url))
+
+
+if __name__ == '__main__':
+    main()

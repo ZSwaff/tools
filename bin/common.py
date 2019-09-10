@@ -131,7 +131,7 @@ def run_command(cmd, path=None, verbose=False):
     """
     if verbose:
         print(colored(cmd, 'blue'))
-    result = subprocess.check_output(cmd, cwd=path, shell=True).decode()
+    result = subprocess.check_output(cmd, cwd=path, shell=True).decode().strip()
     if verbose:
         print(colored(result, 'green'))
     return result
