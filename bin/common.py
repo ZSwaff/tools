@@ -118,7 +118,7 @@ def load_j(fname):
 
 
 def run_command(cmd, path=None, verbose=False):
-    """Runs a command in a directory and (maybe) prints the command at the
+    """Runs a command in a directory and (maybe) prints the command and the
     output.
 
     Args:
@@ -131,7 +131,12 @@ def run_command(cmd, path=None, verbose=False):
     """
     if verbose:
         print(colored(cmd, 'blue'))
-    result = subprocess.check_output(cmd, cwd=path, shell=True).decode().strip()
+    try:
+        result = subprocess.check_output(cmd, cwd=path, shell=True).decode()
+    except subprocess.CalledProcessError as ex:
+        if verbose:
+            print(colored(ex, 'red'))
+        raise
     if verbose:
         print(colored(result, 'green'))
     return result
