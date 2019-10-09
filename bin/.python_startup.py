@@ -22,7 +22,6 @@ import numpy as np
 import pandas as pd
 
 import plentyservice
-import plenty_data_frames
 
 from common import *
 

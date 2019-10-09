@@ -26,12 +26,9 @@ alias sgw='ssh -i ~/.ssh/gh/work'  # ssh with work GitHub key
 
 # Installation
 alias bi='brew install'  # brew install
-alias pip2='sudo -H python2 -m pip'  # pip 2
-alias pip3='sudo -H python3 -m pip'  # pip 3
-alias pi2='pip2 install'  # pip 2 install
-alias pi3='pip3 install'  # pip 3 install
-alias psi2='sudo -H python2 setup.py install'  # Python 2 setup install cwd package
-alias psi3='sudo -H python3 setup.py install'  # Python 3 setup install cwd package
+alias pip='sudo -H python3 -m pip'  # pip 3
+alias pi='pip3 install'  # pip 3 install
+alias psi='sudo -H python3 setup.py install'  # Python 3 setup install cwd package
 alias bpu='brew update && brew upgrade && pi3 --upgrade pip setuptools'  # upgrade brew and pip
 
 # Editing
@@ -43,8 +40,7 @@ alias i='. intrct'  # interact intelligently
 
 # Execution
 alias b='bash'  # bash
-alias p2='strtpy 2'  # run file or open REPL with interactive Python 2
-alias p3='strtpy 3'  # run file or open REPL with interactive Python 3
+alias p='strtpy 3'  # run file or open REPL with interactive Python 3
 alias wb='./gradlew build'  # build cwd project with gradle
 alias wbw='./gradlew build -PwithWebpack'  # build cwd project with gradle and webpack
 alias wr='./gradlew run'  # run cwd project with gradle

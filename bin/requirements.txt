@@ -1,5 +1,4 @@
 numpy
 pandas
 termcolor
-git+ssh://git@github.com/PlentyAg/cli.git
-git+ssh://git@github.com/PlentyAg/plenty_data_frame.git
+git+ssh://git@github.com/PlentyAg/plenty-utils-python.git
