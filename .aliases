@@ -30,6 +30,9 @@ alias pip='sudo -H python3 -m pip'  # pip 3
 alias pi='pip3 install'  # pip 3 install
 alias psi='sudo -H python3 setup.py install'  # Python 3 setup install cwd package
 alias bpu='brew update && brew upgrade && pi3 --upgrade pip setuptools'  # upgrade brew and pip
+alias venv='. venv'  # create and start or just start a virtual environment
+alias dvenv='deactivate &> /dev/null'  # deactivate a virtual environment
+alias rvenv='dvenv; rvenv'  # delete a virtual environment
 
 # Editing
 alias s='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'  # sublime
@@ -47,6 +50,7 @@ alias wr='./gradlew run'  # run cwd project with gradle
 alias wrw='./gradlew run -PwithWebpack'  # run cwd project with gradle and webpack
 alias wt='./gradlew test'  # test cwd project with gradle
 alias j='/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home/bin/jshell'  # open Java REPL
+alias nb='jupyter notebook'  # jupyter notebook
 
 # Git
 alias gcl='. rpcl gclpy'  # git clone for work
@@ -79,8 +83,4 @@ alias et='s ~/bin && s ~/.zshrc && s ~/.aliases_plenty && s ~/.aliases'  # edit 
 alias redo='sudo $(fc -ln -1)'  # redo a command with sudo privileges
 
 # Random
-alias venv='. venv'  # create and start or just start a virtual environment
-alias dvenv='deactivate &> /dev/null'  # deactivate a virtual environment
-alias rvenv='dvenv; rvenv'  # delete a virtual environment
-alias jptn='jupyter notebook'  # jupyter notebook
 alias ldyn='c /Applications/dynamodb_local_latest && r && java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb && c- && r'  # run local dynamo instance
