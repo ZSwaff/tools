@@ -40,6 +40,8 @@ alias sublime='s'
 alias s.='s .'  # open cwd in sublime 
 alias v='vi'  # vim
 alias i='. intrct'  # interact intelligently
+alias ji='idea'  # open with IntelliJ
+alias pi='charm'  # open with PyCharm
 
 # Execution
 alias b='bash'  # bash
