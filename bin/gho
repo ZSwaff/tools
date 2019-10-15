@@ -9,10 +9,10 @@ from common import run_command
 
 def main():
     """The main function."""
-    root = run_command('git config --get remote.origin.url')
+    root = run_command('git config --get remote.origin.url').strip()
     root = re.sub(r'^git@github\.com:(?P<relpath>.*)\.git$', r'https://github.com/\g<relpath>', root)
-    branch = run_command('git rev-parse --abbrev-ref HEAD')
-    dpath = run_command('git rev-parse --show-prefix')
+    branch = run_command('git rev-parse --abbrev-ref HEAD').strip()
+    dpath = run_command('git rev-parse --show-prefix').strip()
     url = f'{root}/tree/{branch}/{dpath}'
     run_command('open {}'.format(url))
 
