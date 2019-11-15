@@ -16,6 +16,6 @@ if len(sys.argv) < 2 or sys.argv[1] not in valid_versions:
 
 if len(sys.argv) == 2 :
     startup_fname = path.expanduser(path.join('~', 'bin', '.python_startup.py'))
-    subprocess.call('ipython{} --no-confirm-exit -i {}'.format(sys.argv[1], startup_fname), shell=True)
+    subprocess.call('ipython{} --no-banner --no-confirm-exit -i {}'.format(sys.argv[1], startup_fname), shell=True)
 else:
     subprocess.call('python{} {}'.format(sys.argv[1], ' '.join(sys.argv[2:])), shell=True)
