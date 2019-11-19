@@ -11,13 +11,12 @@ while true; do
 	output="$(${1} ${@:2} --rpcl-input-args \'${u}\')"
 	r="$(echo -e ${output} | cut -d "\`" -f1)"
 	[[ ! -z "${r// }" ]] && echo "${r}"
-	d="$(echo -e ${output} | tr "\n" " " | rev | cut -d "\`" -f1 | rev)"
-	[[ ! -z "${d// }" ]] && break
+	d="$(echo -e ${output} | tr "\n" " " | rev | cut -d "\`" -f1 | rev | xargs)"
+	[[ ! -z "${d}" ]] && break
 	echo -n "? "; read u2
 	u="${u} \"${u2}\""; u="${u// }"
 done
 
-d="${d// }"
 echo "${d}"
 printf "%*s" "${#d}" | tr " " "-"
 echo
