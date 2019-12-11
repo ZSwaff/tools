@@ -34,3 +34,4 @@ colors
 . ~/.aliases_kubectl
 
 export PATH=/Users/zackswafford/bin:/Users/zackswafford/Desktop/workspace/plenty-scripts:/Users/zackswafford/Desktop/workspace/plenty-scripts/user_management:$PATH
+export PYTHONPATH=/usr/local/lib/python3.7/site-packages:$PYTHONPATH
