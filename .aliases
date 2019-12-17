@@ -26,10 +26,10 @@ alias sgw='ssh -i ~/.ssh/gh/work'  # ssh with work GitHub key
 
 # Installation
 alias bi='brew install'  # brew install
-alias pip='sudo -H python3 -m pip'  # pip 3
-alias pi='pip3 install'  # pip 3 install
-alias psi='sudo -H python3 setup.py install'  # Python 3 setup install cwd package
-alias bpu='brew update && brew upgrade && pi3 --upgrade pip setuptools'  # upgrade brew and pip
+alias pip='sudo -H python3.7 -m pip'  # pip 3
+alias pi='pip3.7 install'  # pip 3 install
+alias psi='sudo -H python3.7 setup.py install'  # Python 3 setup install cwd package
+alias bpu='brew update && brew upgrade && pi --upgrade pip setuptools'  # upgrade brew and pip
 alias venv='. venv'  # create and start or just start a virtual environment
 alias dvenv='deactivate &> /dev/null'  # deactivate a virtual environment
 alias rvenv='dvenv; rvenv'  # delete a virtual environment
@@ -53,6 +53,7 @@ alias wrw='./gradlew run -PwithWebpack'  # run cwd project with gradle and webpa
 alias wt='./gradlew test'  # test cwd project with gradle
 alias j='/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home/bin/jshell'  # open Java REPL
 alias nb='jupyter notebook'  # jupyter notebook
+alias python3='python3.7'
 
 # Git
 alias gcl='. rpcl gclpy'  # git clone for work
