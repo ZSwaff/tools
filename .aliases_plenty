@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Plenty
-alias cli='python -m plentyservice'  # run Plenty service CLI
+alias cli='python3.7 -m plentyservice'  # run Plenty service CLI
 alias qr='${WORKSPACE}/qr_generator/plentyqrgen/gen'  # generate QR code
 alias bs='p3 ${WORKSPACE}/beansprout/beansprout.py'  # run beansprout
 alias ghr='release.py'  # creates a new GitHub release
