@@ -25,10 +25,11 @@ alias rm='trash'
 alias sgw='ssh -i ~/.ssh/gh/work'  # ssh with work GitHub key
 
 # Installation
+alias python='python3'
+alias pip='sudo -H python -m pip'  # pip 3
+alias pi='pip install'  # pip 3 install
+alias psi='sudo -H python setup.py install'  # Python 3 setup install cwd package
 alias bi='brew install'  # brew install
-alias pip='sudo -H python3.7 -m pip'  # pip 3
-alias pi='pip3.7 install'  # pip 3 install
-alias psi='sudo -H python3.7 setup.py install'  # Python 3 setup install cwd package
 alias bpu='brew update && brew upgrade && pi --upgrade pip setuptools'  # upgrade brew and pip
 alias venv='. venv'  # create and start or just start a virtual environment
 alias dvenv='deactivate &> /dev/null'  # deactivate a virtual environment
