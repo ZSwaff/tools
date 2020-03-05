@@ -33,4 +33,4 @@ colors
 . ~/.aliases_plenty
 . ~/.aliases_kubectl
 
-export PATH=/Users/zackswafford/bin:/Users/zackswafford/Desktop/workspace/plenty-scripts:/Users/zackswafford/Desktop/workspace/plenty-scripts/user_management:$PATH
+export PATH=/Users/zackswafford/bin:$PATH
