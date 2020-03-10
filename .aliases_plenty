@@ -6,5 +6,5 @@ alias cli='python3.7 -m plentyservice'  # run Plenty CLI
 alias pcli='cli'  # run Plenty CLI
 alias clu='cli'  # run Plenty CLI
 alias qr='${WORKSPACE}/qr_generator/plentyqrgen/gen'  # generate QR code
-alias rel='${WORKSPACE}/plenty-scripts/release.py'  # creates a new GitHub release
-alias fusr='${WORKSPACE}/plenty-scripts/miscellaneous/user_management/find_user'  # creates a new GitHub release
+alias rl='${WORKSPACE}/plenty-scripts/release.py'  # creates a new GitHub release
+alias fusr='${WORKSPACE}/plenty-scripts/miscellaneous/user_management/find_user'  # find a user
