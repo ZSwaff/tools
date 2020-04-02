@@ -4,11 +4,31 @@
 # manage environment variables
 
 
-from os import path
+import os
 import argparse
 
+from termcolor import colored
 
-ENVVAR_FPATH = path.expanduser(path.join('~', '.envvars'))
+
+ENVVAR_FPATH = os.path.expanduser(os.path.join('~', '.envvars'))
+HIST_PATH = os.path.expanduser(os.path.join('~', '.zsh_history'))
+
+ENVVAR_VAL_START_CHARS = {'~', '/'}
+
+this_fname = os.path.basename(__file__).encode()
+
+
+def _calc_bad_substrs(envvar_values):
+    res = [this_fname]
+    for e in envvar_values:
+        if e.isdigit():
+            continue
+        if e.isalpha() and e.islower():
+            continue
+        if e[0] in ENVVAR_VAL_START_CHARS:
+            continue
+        res.append(e.encode())
+    return res
 
 
 def main():
@@ -30,20 +50,37 @@ def main():
             return
         if key in envvars:
             if envvars[key] == value:
-                print('That environment variable already has that value.')
+                print(colored('That environment variable already has that value.', 'red'))
                 return
             print('Overwriting old value \'{}\'.'.format(envvars[key]))
         envvars[key] = value
     else:
         if key not in envvars:
-            print('That environment variable does not exist.')
+            print(colored('That environment variable does not exist.', 'red'))
             return
         envvars.pop(key)
 
+    bad_substrs = [this_fname] + _calc_bad_substrs(envvars.values())
     envvars = sorted(envvars.items())
 
     with open(ENVVAR_FPATH, 'w') as fout:
         fout.write('\n'.join(['export {}={}'.format(k, v) for k, v in envvars]))
+
+    with open(HIST_PATH, 'rb') as fin:
+        lines_in = fin.read().split(b'\n')
+
+    lines_out = []
+    lines_bad = []
+    for line in lines_in:
+        if any(e in line for e in bad_substrs):
+            lines_bad.append(line.decode('utf-8'))
+        else:
+            lines_out.append(line)
+    if lines_bad:
+        print(colored('Scrubbing\n' + '\n'.join(lines_bad), 'red'))
+
+    with open(HIST_PATH, 'wb') as fout:
+        fout.write(b'\n'.join(lines_out))
 
     print('Restart the shell for changes to take effect.')
 
