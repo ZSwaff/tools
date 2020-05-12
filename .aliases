@@ -60,8 +60,8 @@ alias nb='jupyter notebook'  # jupyter notebook
 alias python3='python3.7'
 
 # Git
-alias gcl='. rpcl gclpy'  # git clone for work
-alias gclp='. rpcl gclpy -p'  # git clone for personal
+alias gcl='. rpcl gcl'  # git clone for work
+alias gclp='. rpcl gcl -p'  # git clone for personal
 alias gsew='git config user.email "zack@plenty.ag"'  # git set email for work
 alias gsep='git config user.email "zdfs1121@gmail.com"'  # git set email for personal
 alias glg='git log --graph --pretty=oneline --abbrev-commit'  # git log for convinient reading
@@ -74,6 +74,7 @@ alias gcm='git checkout master'  # git checkout master
 alias gbd='git branch -D'  # git branch delete
 alias gpl='git pull'  # git pull
 alias gps='git push'  # git push
+alias ga='git add -f'  # git add
 alias gacp='gacp'  # git add, commit, then push
 alias gs='git stash'  # git stash
 alias gsp='git stash pop'  # git stash pop

@@ -16,7 +16,7 @@ def main():
     parser.add_argument('message', nargs='+', help='the commit message')
     args = parser.parse_args()
 
-    commit_msg = args.message
+    commit_msg = ' '.join(args.message)
     nver_msg = '--no-verify' if args.no_verify else ''
 
     run_command('git add --all .')
