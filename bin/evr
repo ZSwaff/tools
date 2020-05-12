@@ -52,7 +52,7 @@ def main():
             if envvars[key] == value:
                 print(colored('That environment variable already has that value.', 'red'))
                 return
-            print('Overwriting old value \'{}\'.'.format(envvars[key]))
+            print(f'Overwriting old value \'{envvars[key]}\'.')
         envvars[key] = value
     else:
         if key not in envvars:
@@ -64,7 +64,7 @@ def main():
     envvars = sorted(envvars.items())
 
     with open(ENVVAR_FPATH, 'w') as fout:
-        fout.write('\n'.join(['export {}={}'.format(k, v) for k, v in envvars]))
+        fout.write('\n'.join([f'export {k}={v}' for k, v in envvars]))
 
     with open(HIST_PATH, 'rb') as fin:
         lines_in = fin.read().split(b'\n')

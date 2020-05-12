@@ -32,8 +32,10 @@ def main():
                 match = re.match(r'alias (\w*)=\'.*\'  # (.*)', line)
                 if match is None:
                     continue
-                listing.append('{}: {}'.format(colored(match.group(1), 'green'), match.group(2)))
-                mapping[match.group(1)] = match.group(2)
+                k, v = match.group(1), match.group(2)
+                col_k = colored(k, 'green')
+                listing.append(f'{col_k}: {v}')
+                mapping[k] = v
 
     cmd = args.cmd
     if cmd is None:

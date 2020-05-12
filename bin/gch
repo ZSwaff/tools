@@ -19,7 +19,7 @@ def branch_exists(branch):
         (bool): Whether the branch exists.
     """
     try:
-        run_command('git rev-parse --verify {} 2>&1'.format(branch))
+        run_command(f'git rev-parse --verify {branch} 2>&1')
         return True
     except CalledProcessError as e:
         if '128' in str(e):
@@ -44,6 +44,7 @@ def main():
         return
 
     run_command('git checkout -b ' + branch)
+
 
 if __name__ == '__main__':
     main()

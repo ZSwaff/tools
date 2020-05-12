@@ -43,7 +43,9 @@ alias s.='s .'  # open cwd in sublime
 alias v='vi'  # vim
 alias i='. intrct'  # interact intelligently
 alias ij='idea'  # open with IntelliJ
+alias ij.='ij .'  # open cwd with IntelliJ
 alias pc='charm'  # open with PyCharm
+alias pc.='pc .'  # open cwd with PyCharm
 
 # Execution
 alias b='bash'  # bash
@@ -66,13 +68,13 @@ alias glg='git log --graph --pretty=oneline --abbrev-commit'  # git log for conv
 alias gst='git remote update; git status'  # git status
 alias gba='git branch -a'  # git branch all
 alias gc='gch'  # git checkout
-alias gb='gc'
+alias gb='gc'  # git branch
 alias gc-='git checkout @{-1}'  # git checkout last
 alias gcm='git checkout master'  # git checkout master
 alias gbd='git branch -D'  # git branch delete
 alias gpl='git pull'  # git pull
 alias gps='git push'  # git push
-alias gacp='b gacp'  # git add, commit, then push
+alias gacp='gacp'  # git add, commit, then push
 alias gs='git stash'  # git stash
 alias gsp='git stash pop'  # git stash pop
 alias gd='git diff'  # git diff

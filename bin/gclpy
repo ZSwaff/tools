@@ -25,7 +25,7 @@ def main():
     if not url.startswith('git@'):
         org = 'ZSwaff' if personal else 'PlentyAg'
         suf = '-personal' if personal else '.com'
-        url = 'git@github{}:{}/{}.git'.format(suf, org, url)
+        url = f'git@github{suf}:{org}/{url}.git'
     print(url)
 
     project = url.split('/')[-1][:-4]
@@ -43,10 +43,9 @@ def main():
 
     if personal:
         run_command('git config user.email "zdfs1121@gmail.com"')
-    print('If this is not a {} project, run {}.'.format(
-        'personal' if personal else 'work',
-        colored('gsew' if personal else 'gsep', 'blue')
-    ))
+    proj_type = 'personal' if personal else 'work'
+    fix_cmd = colored('gsew' if personal else 'gsep', 'blue')
+    print(f'If this is not a {proj_type} project, run {fix_cmd}.')
     exit(project)
 
 

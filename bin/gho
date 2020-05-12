@@ -7,6 +7,7 @@ import re
 
 from common import run_command
 
+
 def main():
     """The main function."""
     root = run_command('git config --get remote.origin.url').strip()
@@ -14,7 +15,7 @@ def main():
     branch = run_command('git rev-parse --abbrev-ref HEAD').strip()
     dpath = run_command('git rev-parse --show-prefix').strip()
     url = f'{root}/tree/{branch}/{dpath}'
-    run_command('open {}'.format(url))
+    run_command(f'open {url}')
 
 
 if __name__ == '__main__':

@@ -1,26 +1,33 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # git add, commit, then push
 
 
-set -e
+import argparse
 
-if [[ -z $1 ]]; then
-	echo -n "Commit message: "; read m
-else
-	m="${*}"
-fi
-
-git add --all .
-git commit -m "${m}"
-
-b="$(git status -sb)"
-if [[ $ == *"...origin/"* ]]; then
-	git push "$(git rev-parse --abbrev-ref HEAD)"
-else
-	git push --set-upstream origin "$(git rev-parse --abbrev-ref HEAD)"
-fi
+from common import run_command
 
 
-set +e
+def main():
+    """The main method."""
+    parser = argparse.ArgumentParser(description='A CLI to check use git to add, commit, and then push, all at once.')
+    parser.add_argument('-n', action='store_true', dest='no_verify', help='whether to verify the commit')
+    parser.add_argument('message', nargs='+', help='the commit message')
+    args = parser.parse_args()
+
+    commit_msg = args.message
+    nver_msg = '--no-verify' if args.no_verify else ''
+
+    run_command('git add --all .')
+
+    run_command(f'git commit {nver_msg} -m "{commit_msg}"')
+
+    branch = run_command('git rev-parse --abbrev-ref HEAD').strip()
+    branch_status = run_command('git status -sb')
+    setup_msg = '--set-upstream origin' if '...origin/' in branch_status else ''
+    run_command(f'git push {setup_msg} {branch}')
+
+
+if __name__ == '__main__':
+    main()
