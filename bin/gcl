@@ -4,6 +4,7 @@
 # git clone a project
 
 import os
+import re
 import sys
 import argparse
 import subprocess
@@ -13,40 +14,40 @@ from termcolor import colored
 from common import run_command, RpclIOManager
 
 
+PATH_REGEX = r'git@github\.com:(?P<org>[^/]*)/(?P<repo>[^/]*)\.git'
+PATH_FMT = 'git@github{suff}:{org}/{repo}.git'
+IGNORED_ORGS = {'PlentyAg'}
+
+
 def main():
     """The main function."""
     parser = argparse.ArgumentParser(description='A CLI to clone a project.')
-    parser.add_argument('-p', dest='personal', action='store_true', help='indicates this is a personal project')
-    parser.add_argument('project', help='the name of the repo if in PlentyAg or ZSwaff, or the full URL')
+    parser.add_argument('path', help='the full ssh path of the repo')
     RpclIOManager(parser)
     args = parser.parse_args()
+    path = args.path
 
-    url, personal = args.project, args.personal
-    if not url.startswith('git@'):
-        org = 'ZSwaff' if personal else 'PlentyAg'
-        suf = '-personal' if personal else '.com'
-        url = f'git@github{suf}:{org}/{url}.git'
-    print(url)
+    match = re.fullmatch(PATH_REGEX, path)
+    if match is None:
+        print(colored(f'Invalid path \'{path}\'.', 'red'))
 
-    project = url.split('/')[-1][:-4]
-    if os.path.exists(project):
-        print(colored('Destination file already exists.', 'red'))
+    fields = match.groupdict()
+    org, repo = match['org'], match['repo']
+
+    personal = org not in IGNORED_ORGS
+    suff = '-personal' if personal else '.com'
+
+    if os.path.exists(repo):
+        print(colored(f'Destination file \'{repo}\' already exists.', 'red'))
         exit('.')
 
-    try:
-        run_command('git ls-remote ' + url)
-    except subprocess.CalledProcessError:
-        print(colored('Remote repo does not exist.', 'red'))
-        exit('.')
-
-    run_command('git clone ' + url)
+    path = PATH_FMT.format(suff=suff, org=org, repo=repo)
+    run_command('git clone ' + path, verbose=True)
 
     if personal:
-        run_command('git config user.email "zdfs1121@gmail.com"')
-    proj_type = 'personal' if personal else 'work'
-    fix_cmd = colored('gsew' if personal else 'gsep', 'blue')
-    print(f'If this is not a {proj_type} project, run {fix_cmd}.')
-    exit(project)
+        run_command(f'git --git-dir {repo}/.git config user.email zdfs1121@gmail.com')
+
+    exit(repo)
 
 
 if __name__ == '__main__':
