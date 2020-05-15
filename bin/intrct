@@ -17,5 +17,3 @@ if [[ -d $i ]]; then
 else
 	s "$i"
 fi
-
-set +e

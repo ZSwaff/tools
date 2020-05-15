@@ -14,7 +14,8 @@ from rpcl import rpcl_safe, RpclManager
 
 ORDERED_ENVVAR_DIRS_TO_CHECK = [
     'WORKSPACE',
-    'DESKTOP'
+    'DESKTOP',
+    'MISC'
 ]
 MAX_PATHS_TO_CHECK = 10000
 
@@ -74,6 +75,11 @@ def main():
     dname = os.path.expanduser(' '.join(args.dir))
     if dname == '':
         exit(os.path.expanduser('~'))
+
+    # rooted = any(dname.startswith(e) for e in ['/', './', '../'])
+    # if rooted:
+    #     dname = os.path.abspath(dname)
+
     if dname.startswith('/') or dname.startswith('.'):
         exit(dname)
 

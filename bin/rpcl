@@ -20,7 +20,7 @@ done
 echo "${d}"
 printf "%*s" "${#d}" | tr " " "-"
 echo
-\cd "${d}"
-l
 
 set +e
+
+\cd "${d}" && l

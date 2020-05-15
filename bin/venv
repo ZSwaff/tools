@@ -20,5 +20,3 @@ if [[ ! -f $actvf ]]; then
 else
 	source "${actvf}"
 fi
-
-set +e
