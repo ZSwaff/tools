@@ -12,39 +12,22 @@ from functools import wraps
 RPCL_CD_DELIM = '`'
 
 
-class RpclManger:
-    def __init__(self):
-        """Prepares the manager."""
-        self.__finalized = False
+def rpcl_safe(fn):
+    """Annotation for RPCL methods to ensure safe finish."""
+    @wraps(fn)
+    def wrapper():
+        try:
+            fn()
+        except Exception as ex:
+            if isinstance(ex, SystemExit):
+                raise
+            print(traceback.format_exc())
+            print(f'{RPCL_CD_DELIM}.')
 
-    def __print_final():
-        
-
-    def safe(self, fn):
-        """Annotation for RPCL methods to ensure safe finish.
-
-        Args:
-            fn (function): The function to make safe.
-
-        Returns:
-            (function): The safe funtion.
-        """
-        @wraps(fn)
-        def wrapper():
-            try:
-                fn()
-            except Exception as ex:
-                if isinstance(ex, SystemExit):
-                    if !self.__finalized:
-                        
-                    raise
-                print(traceback.format_exc())
-                print(f'{RPCL_CD_DELIM}.')
-
-        return wrapper
+    return wrapper
 
 
-class RpclArgumentParser:
+class RpclManager:
     """A class to manage the Run Print Cd Ls client relationship."""
 
     def __init__(self, parser):
