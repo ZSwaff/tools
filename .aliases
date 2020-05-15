@@ -60,7 +60,7 @@ alias nb='jupyter notebook'  # jupyter notebook
 alias python3='python3.7'
 
 # Git
-alias gcl='. rpcl gcl'  # git clone for work
+alias gcl='. rpcl gclpy'  # git clone for work
 alias glg='git log --graph --pretty=oneline --abbrev-commit'  # git log for convinient reading
 alias gst='git remote update; git status'  # git status
 alias gba='git branch -a'  # git branch all

@@ -7,7 +7,7 @@
 import os
 import argparse
 
-from termcolor import colored
+from common import color_err
 
 
 ENVVAR_FPATH = os.path.expanduser(os.path.join('~', '.envvars'))
@@ -50,13 +50,13 @@ def main():
             return
         if key in envvars:
             if envvars[key] == value:
-                print(colored('That environment variable already has that value.', 'red'))
+                print(color_err('That environment variable already has that value.'))
                 return
             print(f'Overwriting old value \'{envvars[key]}\'.')
         envvars[key] = value
     else:
         if key not in envvars:
-            print(colored('That environment variable does not exist.', 'red'))
+            print(color_err('That environment variable does not exist.'))
             return
         envvars.pop(key)
 
@@ -77,7 +77,7 @@ def main():
         else:
             lines_out.append(line)
     if lines_bad:
-        print(colored('Scrubbing\n' + '\n'.join(lines_bad), 'red'))
+        print(color_err('Scrubbing\n' + '\n'.join(lines_bad)))
 
     with open(HIST_PATH, 'wb') as fout:
         fout.write(b'\n'.join(lines_out))

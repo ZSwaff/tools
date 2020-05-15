@@ -8,7 +8,7 @@ import os
 import argparse
 import re
 
-from termcolor import colored
+from common import color_info, color_err, color_succ
 
 
 def main():
@@ -24,7 +24,7 @@ def main():
             for line in fin.readlines()[2:]:
                 line = line.strip()
                 if line.startswith('#'):
-                    listing.append(colored(line[1:].strip(), 'blue'))
+                    listing.append(color_info(line[1:].strip()))
                     continue
                 if line == '':
                     listing.append('')
@@ -33,7 +33,7 @@ def main():
                 if match is None:
                     continue
                 k, v = match.group(1), match.group(2)
-                col_k = colored(k, 'green')
+                col_k = color_succ(k)
                 listing.append(f'{col_k}: {v}')
                 mapping[k] = v
 
@@ -44,7 +44,7 @@ def main():
         if cmd in mapping:
             print(mapping[cmd])
         else:
-            print(colored('Could not find command', 'red'))
+            print(color_err('Could not find command'))
 
 
 if __name__ == '__main__':

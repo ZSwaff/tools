@@ -8,9 +8,7 @@ import os
 import argparse
 import glob
 
-from termcolor import colored
-
-from common import RpclIOManager
+from common import rpcl_safe, RpclIoManager, color_info, color_err
 
 
 ORDERED_ENVVAR_DIRS_TO_CHECK = [
@@ -47,8 +45,8 @@ def check_parent_for_matches(dparent, dname):
         return os.path.join(dparent, paths[0])
 
     for i, suffix in enumerate(paths):
-        print('[{}]: {}'.format(i + 1, colored(suffix, 'blue')))
-    print('[{}]: {}'.format(len(paths) + 1, colored('None', 'red')))
+        print(f'[{i + 1}]: {color_info(suffix)}')
+    print(f'[{len(paths) + 1}]: {color_err(None)}')
 
     while True:
         try:
@@ -64,11 +62,12 @@ def check_parent_for_matches(dparent, dname):
     return os.path.join(dparent, paths[choice])
 
 
+@rpcl_safe
 def main():
     """The main function."""
     parser = argparse.ArgumentParser(description='A CLI to change directories intelligently, then list the contents.')
-    parser.add_argument('dir', nargs='*', help='the name or prefix of the directory')
-    RpclIOManager(parser)
+    parser.add_argument('dir', nargs='+', help='the name or substring of the directory')
+    RpclIoManager(parser)
     args = parser.parse_args()
 
     dname = os.path.expanduser(' '.join(args.dir))
@@ -81,19 +80,15 @@ def main():
 
     for i, dparent in enumerate(dparents):
         if i != 0:
-            print('Checking in {}'.format(colored(dparent, 'blue')))
+            print(f'Checking in {color_info(dparent)}')
 
         dpath = check_parent_for_matches(dparent, dname)
         if dpath is not None:
             exit(dpath)
 
-    print(colored('Could not find {}.', 'red').format(colored(dname, 'blue')))
-    exit('.')
+    print(color_err(f'Could not find \'{dname}\'.'))
+    exit()
 
 
 if __name__ == '__main__':
-    try:
-        main()
-    except Exception as ex:
-        print(repr(ex))
-        exit('.')
+    main()

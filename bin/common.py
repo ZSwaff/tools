@@ -7,10 +7,15 @@ from __future__ import print_function
 import builtins
 import os
 import sys
+import traceback
 import subprocess
 from datetime import datetime
+from functools import wraps
 
 from termcolor import colored
+
+
+RPCL_CD_DELIM = '`'
 
 
 def is_ipynb():
@@ -117,6 +122,18 @@ def load_j(fname):
         return json.load(fin)
 
 
+def color_info(s):
+    return colored(str(s), 'blue')
+
+
+def color_err(s):
+    return colored(str(s), 'red')
+
+
+def color_succ(s):
+    return colored(str(s), 'green')
+
+
 def run_command(cmd, path=None, verbose=False):
     """Runs a command in a directory and (maybe) prints the command and the
     output.
@@ -130,19 +147,34 @@ def run_command(cmd, path=None, verbose=False):
         (str): The result of the command.
     """
     if verbose:
-        print(colored(cmd, 'blue'))
+        print(color_info(cmd))
     try:
         result = subprocess.check_output(cmd, cwd=path, shell=True).decode()
     except subprocess.CalledProcessError as ex:
         if verbose:
-            print(colored(ex, 'red'))
+            print(color_err(ex))
         raise
     if verbose:
-        print(colored(result, 'green'))
+        print(color_succ(result))
     return result
 
 
-class RpclIOManager:
+def rpcl_safe(fn):
+    """Annotation for RPCL methods to ensure safe finish."""
+    @wraps(fn)
+    def wrapper():
+        try:
+            fn()
+        except Exception as ex:
+            if isinstance(ex, SystemExit):
+                raise
+            print(traceback.format_exc())
+            print(f'{RPCL_CD_DELIM}.')
+
+    return wrapper
+
+
+class RpclIoManager:
     """A class to manage the Run Print Cd Ls client relationship."""
 
     def __init__(self, parser):
@@ -205,7 +237,9 @@ class RpclIOManager:
     def exit(self, *args, **kwargs):
         """Print the return message and exits."""
         self.__raise_if_unparsed()
-        self.__old_print('`', end='')
+        self.__old_print(f'{RPCL_CD_DELIM}', end='')
+        if len(args) == 0:
+            args = ('.',)
         self.__old_print(*args, **kwargs)
         self.close()
         sys.exit(0)
