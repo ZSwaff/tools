@@ -45,6 +45,8 @@ def main():
     args = parser.parse_args()
 
     args_search = ' '.join(args.dir)
+    if args_search == '-':
+        exit('-')
     if args_search == '':
         args_search = '~'
     search = path.expanduser(args_search).lower()
