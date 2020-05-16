@@ -6,7 +6,8 @@
 
 import os
 import argparse
-import glob
+import re
+from os import path
 
 from common import color_info, color_err
 from rpcl import rpcl_safe, RpclManager
@@ -17,83 +18,63 @@ ORDERED_ENVVAR_DIRS_TO_CHECK = [
     'DESKTOP',
     'MISC'
 ]
-MAX_PATHS_TO_CHECK = 10000
-
-
-def check_parent_for_matches(dparent, dname):
-    """Checks a given directory to see if it contains the given prefix; if so,
-    asks the user for input as to which is intended.
-
-    Args:
-        dparent (str): The path of the parent directory.
-        dname (str): The prefix of the internal directory.
-    Returns:
-        (str): The path found, or None if none exist.
-    """
-    paths = []
-    for recursive in [False, True]:
-        for i, e in enumerate(glob.iglob(dparent + '/**/', recursive=recursive)):
-            if i >= MAX_PATHS_TO_CHECK:
-                break
-            if dname.lower() in e.lower() and (len(paths) == 0 or not e.startswith(paths[-1])):
-                paths.append(e)
-        if len(paths) != 0:
-            break
-    paths = sorted(paths)
-
-    if len(paths) == 0:
-        return None
-    if len(paths) == 1:
-        return os.path.join(dparent, paths[0])
-
-    for i, suffix in enumerate(paths):
-        print(f'[{i + 1}]: {color_info(suffix)}')
-    print(f'[{len(paths) + 1}]: {color_err(None)}')
-
-    while True:
-        try:
-            choice = int(input()) - 1
-            if not 0 <= choice <= len(paths):
-                continue
-            break
-        except ValueError:
-            continue
-
-    if choice == len(paths):
-        return None
-    return os.path.join(dparent, paths[choice])
+MAX_DEPTH = 5
 
 
 @rpcl_safe
 def main():
     """The main function."""
     parser = argparse.ArgumentParser(description='A CLI to change directories intelligently, then list the contents.')
-    parser.add_argument('dir', nargs='+', help='the name or substring of the directory')
+    parser.add_argument('dir', nargs='*', help='the name or substring of the directory')
     RpclManager(parser)
     args = parser.parse_args()
 
-    dname = os.path.expanduser(' '.join(args.dir))
-    if dname == '':
-        exit(os.path.expanduser('~'))
+    args_search = ' '.join(args.dir)
+    if args_search == '':
+        args_search = '~'
+    search = path.expanduser(args_search).lower()
 
-    # rooted = any(dname.startswith(e) for e in ['/', './', '../'])
-    # if rooted:
-    #     dname = os.path.abspath(dname)
+    match = re.match(r'\.+', search)
+    if match is not None:
+        n_dots = match.end()
+        rel = './' + '../' * (n_dots - 1)
+        if n_dots == len(search):
+            exit(path.abspath(rel))
+        search = rel + search[n_dots:]
 
-    if dname.startswith('/') or dname.startswith('.'):
-        exit(dname)
+    if len(search) != 1 and search.endswith('/'):
+        search = search[:-1]
 
-    dparents = [os.getcwd()] + [os.environ[e] for e in ORDERED_ENVVAR_DIRS_TO_CHECK]
+    q = [os.getcwd()] + [path.expanduser(os.environ[e]) for e in ORDERED_ENVVAR_DIRS_TO_CHECK]
+    if search.startswith('/') or search.startswith('.'):
+        full = path.abspath(search)
+        if path.isdir(full):
+            # can case incorrectly if the case is wrong in the search
+            exit(full)
+        parent_full = path.dirname(full)
+        if not path.isdir(parent_full):
+            print(color_err(f'Could not find \'{full}\'.'))
+            exit()
+        q = [parent_full]
+        search = os.path.basename(full)
 
-    for i, dparent in enumerate(dparents):
-        if i != 0:
-            print(f'Checking in {color_info(dparent)}')
+    q = [(e, '', -1) for e in q]
+    while True:
+        root, curr, depth = q.pop(0)
+        if depth > MAX_DEPTH:
+            break
+        parent = path.join(root, curr)
+        try:
+            children = sorted((e.name for e in os.scandir(parent) if e.is_dir()), key=str.lower)
+        except PermissionError:
+            continue
+        for child in children:
+            n_path = path.join(curr, child)
+            if search in n_path.lower():
+                exit(path.join(root, n_path))
+            q.append((root, n_path, depth + 1))
 
-        dpath = check_parent_for_matches(dparent, dname)
-        if dpath is not None:
-            exit(dpath)
-
-    print(color_err(f'Could not find \'{dname}\'.'))
+    print(color_err(f'Could not find \'{search}\'.'))
     exit()
 
 
