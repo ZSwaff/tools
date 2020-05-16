@@ -18,7 +18,22 @@ ORDERED_ENVVAR_DIRS_TO_CHECK = [
     'DESKTOP',
     'MISC'
 ]
-MAX_DEPTH = 5
+MAX_DEPTH = 4
+
+
+def get_children(parent):
+    try:
+        scan = os.scandir(parent)
+    except PermissionError:
+        return []
+    res = []
+    for child in scan:
+        try:
+            if child.is_dir():
+                res.append(child.name)
+        except PermissionError:
+            continue
+    return sorted(res, key=str.lower)
 
 
 @rpcl_safe
@@ -49,8 +64,14 @@ def main():
     if search.startswith('/') or search.startswith('.'):
         full = path.abspath(search)
         if path.isdir(full):
-            # can case incorrectly if the case is wrong in the search
-            exit(full)
+            res = '/'
+            for par in full.split('/')[1:]:
+                for child in get_children(res):
+                    if par.lower() == child.lower():
+                        print('-'*20)
+                        res = path.join(res, child)
+                        break
+            exit(res)
         parent_full = path.dirname(full)
         if not path.isdir(parent_full):
             print(color_err(f'Could not find \'{full}\'.'))
@@ -64,11 +85,8 @@ def main():
         if depth > MAX_DEPTH:
             break
         parent = path.join(root, curr)
-        try:
-            children = sorted((e.name for e in os.scandir(parent) if e.is_dir()), key=str.lower)
-        except PermissionError:
-            continue
-        for child in children:
+
+        for child in get_children(parent):
             n_path = path.join(curr, child)
             if search in n_path.lower():
                 exit(path.join(root, n_path))
