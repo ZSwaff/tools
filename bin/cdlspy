@@ -89,7 +89,10 @@ def main():
             break
         if depth > prev_depth:
             if len(opts) != 0:
-                res = [path.join(e[0], e[1]) for e in sorted(opts, key=lambda x: (len(x[1]), x[1]))]
+                res = sorted(opts, key=lambda x: (len(x[1]), x[1]))
+                res = [path.join(e[0], e[1]) for e in res]
+                seen = set()
+                res = [e for e in res if e not in seen and not seen.add(e)]
                 if len(res) > 1:
                     print(color_err(f'Ambiguous search at depth {depth}, possibilites for \'{search}\' are:\n - ' + '\n - '.join(res)))
                 exit(res[0])
