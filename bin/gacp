@@ -25,8 +25,8 @@ def main():
 
     branch = run_command('git rev-parse --abbrev-ref HEAD').strip()
     branch_status = run_command('git status -sb')
-    setup_msg = '--set-upstream origin ' if '...origin/' not in branch_status else ''
-    run_command(f'git push {setup_msg}{branch}')
+    setup_msg = f' --set-upstream origin {branch}' if '...origin/' not in branch_status else ''
+    run_command(f'git push{setup_msg}')
 
 
 if __name__ == '__main__':
