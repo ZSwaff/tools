@@ -13,7 +13,7 @@ from common import color_info, color_err
 from rpcl import rpcl_safe, RpclManager
 
 
-ORDERED_ENVVAR_DIRS_TO_CHECK = [
+ENVVAR_DIRS_TO_CHECK = [
     'WORKSPACE',
     'DESKTOP',
     'MISC'
@@ -62,7 +62,7 @@ def main():
     if len(search) != 1 and search.endswith('/'):
         search = search[:-1]
 
-    q = [os.getcwd()] + [path.expanduser(os.environ[e]) for e in ORDERED_ENVVAR_DIRS_TO_CHECK]
+    q = [os.getcwd()] + [path.expanduser(os.environ[e]) for e in ENVVAR_DIRS_TO_CHECK]
     if search.startswith('/') or search.startswith('.'):
         full = path.abspath(search)
         if path.isdir(full):
@@ -82,16 +82,26 @@ def main():
         search = os.path.basename(full)
 
     q = [(e, '', -1) for e in q]
+    prev_depth = -1
+    opts = []
     while True:
         root, curr, depth = q.pop(0)
         if depth > MAX_DEPTH:
             break
+        if depth > prev_depth:
+            if len(opts) != 0:
+                res = [path.join(e[0], e[1]) for e in sorted(opts, key=lambda x: (len(x[1]), x[1]))]
+                if len(res) > 1:
+                    print(color_err(f'Ambiguous search at depth {depth}, possibilites for \'{search}\' are:\n - ' + '\n - '.join(res)))
+                exit(res[0])
+            prev_depth = depth
+
         parent = path.join(root, curr)
 
         for child in get_children(parent):
             n_path = path.join(curr, child)
             if search in n_path.lower():
-                exit(path.join(root, n_path))
+                opts.append((root, n_path))
             q.append((root, n_path, depth + 1))
 
     print(color_err(f'Could not find \'{search}\'.'))
