@@ -70,7 +70,6 @@ def main():
             for par in full.split('/')[1:]:
                 for child in get_children(res):
                     if par.lower() == child.lower():
-                        print('-'*20)
                         res = path.join(res, child)
                         break
             exit(res)
