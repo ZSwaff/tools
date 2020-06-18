@@ -79,7 +79,8 @@ alias gd='git diff'  # git diff
 alias gm='git merge'  # git merge
 alias gmm='gm master'  # git merge master
 alias grh='git reset --hard'  # git reset hard
-alias gh='gho'  # open current path in GitHub
+alias gh='gho'  # open GitHub
+alias gpr='gh pr create --web'  # github open a PR
 
 # Meta
 alias h='hlp'  # help
