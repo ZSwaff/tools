@@ -18,7 +18,7 @@ def main():
 
     if len(sys.argv) == 2 :
         startup_fname = path.expanduser(path.join('~', 'bin', '.python_startup.py'))
-        subprocess.call('ipython{} --no-banner --no-confirm-exit -i {}'.format(sys.argv[1], startup_fname), shell=True)
+        subprocess.call('python{} -m IPython --no-banner --no-confirm-exit -i {}'.format(sys.argv[1], startup_fname), shell=True)
     else:
         suff, args = sys.argv[1], ' '.join(sys.argv[2:])
         subprocess.call(f'python{suff} {args}', shell=True)

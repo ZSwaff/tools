@@ -33,4 +33,4 @@ colors
 . ~/.aliases_plenty
 . ~/.aliases_kubectl
 
-export PATH=/Users/zackswafford/bin:$PATH
+export PATH=/Users/zackswafford/bin:/Users/zackswafford/Library/Python/3.8/bin:$PATH
