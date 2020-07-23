@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Plenty
-alias cli='python3.7 -m plentyservice'  # run Plenty CLI
+alias cli='p -m plentyservice'  # run Plenty CLI
 alias pcli='cli'  # run Plenty CLI
 alias clu='cli'  # run Plenty CLI
 alias qr='${WORKSPACE}/qr_generator/plentyqrgen/gen'  # generate QR code
