@@ -38,7 +38,7 @@ alias j='/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home/bin/jshell' 
 alias nb='jupyter notebook'  # jupyter notebook
 
 # Installation
-alias pip='sudo -H python -m pip'  # pip 3
+alias pip='sudo -H python3.8 -m pip'  # pip 3
 alias pi='pip install --user'  # pip 3 install
 alias psi='sudo -H python setup.py install'  # Python 3 setup install cwd package
 alias bi='brew install'  # brew install
