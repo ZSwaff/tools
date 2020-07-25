@@ -29,6 +29,7 @@ alias b='bash'  # bash
 alias python3='python3.8'
 alias python='python3'
 alias p='strtpy 3'  # run file or open REPL with interactive Python 3
+alias p3='p'  # run file or open REPL with interactive Python 3
 alias wb='./gradlew build'  # build cwd project with gradle
 alias wbw='./gradlew build -PwithWebpack'  # build cwd project with gradle and webpack
 alias wr='./gradlew run'  # run cwd project with gradle
@@ -38,7 +39,7 @@ alias j='/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home/bin/jshell' 
 alias nb='jupyter notebook'  # jupyter notebook
 
 # Installation
-alias pip='sudo -H python3.8 -m pip'  # pip 3
+alias pip='p -m pip'  # pip 3
 alias pi='pip install --user'  # pip 3 install
 alias psi='sudo -H python setup.py install'  # Python 3 setup install cwd package
 alias bi='brew install'  # brew install
