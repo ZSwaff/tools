@@ -15,20 +15,42 @@ HIST_PATH = os.path.expanduser(os.path.join('~', '.zsh_history'))
 
 ENVVAR_VAL_START_CHARS = {'~', '/'}
 
-this_fname = os.path.basename(__file__).encode()
 
-
-def _calc_bad_substrs(envvar_values):
-    res = [this_fname]
-    for e in envvar_values:
-        if e.isdigit():
+def _filter_and_reverse_envvars(envvars):
+    res = {}
+    for k, v in envvars.items():
+        if v.isdigit():
             continue
-        if e.isalpha() and e.islower():
+        if v.isalpha() and v.islower():
             continue
-        if e[0] in ENVVAR_VAL_START_CHARS:
+        if v[0] in ENVVAR_VAL_START_CHARS:
             continue
-        res.append(e.encode())
+        res[v.encode()] = f'<${k}>'.encode()
     return res
+
+
+def cleanup_history(envvars):
+    """Cleans up the shell history."""
+    bad_env_vals = _filter_and_reverse_envvars(envvars)
+
+    with open(HIST_PATH, 'rb') as fin:
+        lines_in = fin.read().split(b'\n')
+
+    lines_out = []
+    lines_bad = []
+    for line in lines_in:
+        if any(e in line for e in bad_env_vals):
+            lines_bad.append(line.decode('utf-8'))
+            for k, v in bad_env_vals.items():
+                line = line.replace(k, v)
+        lines_out.append(line)
+    if lines_bad:
+        print(color_err('Scrubbing\n' + '\n'.join(lines_bad)))
+
+    with open(HIST_PATH, 'wb') as fout:
+        fout.write(b'\n'.join(lines_out))
+
+    print('Restart the shell for changes to take effect.')
 
 
 def main():
@@ -44,45 +66,35 @@ def main():
         envvars = dict([e.split('=') for e in fcontent])
 
     key, value = args.key, args.value
-    if not args.rm:
-        if value is None:
-            print('\n'.join(fcontent))
-            return
-        if key in envvars:
-            if envvars[key] == value:
-                print(color_err('That environment variable already has that value.'))
-                return
-            print(f'Overwriting old value \'{envvars[key]}\'.')
-        envvars[key] = value
-    else:
+
+    updated = False
+    if args.rm:
         if key not in envvars:
             print(color_err('That environment variable does not exist.'))
-            return
-        envvars.pop(key)
-
-    bad_substrs = [this_fname] + _calc_bad_substrs(envvars.values())
-    envvars = sorted(envvars.items())
-
-    with open(ENVVAR_FPATH, 'w') as fout:
-        fout.write('\n'.join([f'export {k}={v}' for k, v in envvars]))
-
-    with open(HIST_PATH, 'rb') as fin:
-        lines_in = fin.read().split(b'\n')
-
-    lines_out = []
-    lines_bad = []
-    for line in lines_in:
-        if any(e in line for e in bad_substrs):
-            lines_bad.append(line.decode('utf-8'))
         else:
-            lines_out.append(line)
-    if lines_bad:
-        print(color_err('Scrubbing\n' + '\n'.join(lines_bad)))
+            envvars.pop(key)
+            updated = True
+    else:
+        if value is None:
+            print('\n'.join(fcontent))
+        else:
+            if key in envvars:
+                if envvars[key] == value:
+                    print(color_err('That environment variable already has that value.'))
+                else:
+                    print(f'Overwriting old value \'{envvars[key]}\'.')
+                    envvars[key] = value
+                    updated = True
+            else:
+                envvars[key] = value
+                updated = True
 
-    with open(HIST_PATH, 'wb') as fout:
-        fout.write(b'\n'.join(lines_out))
+    if updated:
+        envvars = sorted(envvars.items())
+        with open(ENVVAR_FPATH, 'w') as fout:
+            fout.write('\n'.join([f'export {k}={v}' for k, v in envvars]))
 
-    print('Restart the shell for changes to take effect.')
+    cleanup_history(envvars)
 
 
 if __name__ == '__main__':
