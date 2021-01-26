@@ -50,8 +50,6 @@ def cleanup_history(envvars):
     with open(HIST_PATH, 'wb') as fout:
         fout.write(b'\n'.join(lines_out))
 
-    print('Restart the shell for changes to take effect.')
-
 
 def main():
     """The main function."""
@@ -90,9 +88,10 @@ def main():
                 updated = True
 
     if updated:
-        envvars = sorted(envvars.items())
+        envvarsl = sorted(envvars.items())
         with open(ENVVAR_FPATH, 'w') as fout:
-            fout.write('\n'.join([f'export {k}={v}' for k, v in envvars]))
+            fout.write('\n'.join([f'export {k}={v}' for k, v in envvarsl]))
+        print('Restart the shell for changes to take effect.')
 
     cleanup_history(envvars)
 
