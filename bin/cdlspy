@@ -15,8 +15,7 @@ from rpcl import rpcl_safe, RpclManager
 
 ENVVAR_DIRS_TO_CHECK = [
     'WORKSPACE',
-    'DESKTOP',
-    'MISC'
+    'DESKTOP'
 ]
 MAX_DEPTH = 4
 
